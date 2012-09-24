@@ -1,0 +1,21 @@
+# detect the OS
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  set(WINDOWS 1)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  set(LINUX 1)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  set(MACOSX 1)
+else()
+  message(WARNING "Unsupported operating system")
+  return()
+endif()
+
+# offer the user the choice of overriding the installation directories
+set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
+set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for executables")
+set(INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header files")
+if(WINDOWS)
+  set(INSTALL_DATA_DIR . CACHE PATH "Installation directory for data files")
+else()
+  set(INSTALL_DATA_DIR share CACHE PATH "Installation directory for data files")
+endif(WINDOWS)

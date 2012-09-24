@@ -1,4 +1,4 @@
-# CMake for MGE
+# CMake master file for MGE
 #
 #
 
@@ -14,13 +14,24 @@ set(MGE_VERSION "${MGE_VERSION_MAJOR}.${MGE_VERSION_MINOR}.${MGE_VERSION_PATCH}"
 # define the path of our additional CMake modules
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/Modules/)
 
+#Find external libraires
+
+# Detect and add SFML
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+find_package(SFML 2.0 COMPONENTS system window graphics network audio REQUIRED)
+
 # set up include-directories
 include_directories(
   "${PROJECT_SOURCE_DIR}/include"
-  )
+  "${SFML_INCLUDE_DIR}"
+)
+
+# add the MGE subdirectory
+add_subdirectory(src/MGE)
 
 # add the examples subdirectory
 if(BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
+
 
