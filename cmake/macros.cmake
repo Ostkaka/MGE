@@ -1,3 +1,15 @@
+# Name: set_option
+# Description: Set the CMAKE option to default if not found or to the value
+# specified.
+# Usage: set_option(var default type docstring)
+# Example: set_option(TARGET_HOST_TYPE "x86" String "x64")
+macro(set_option var default type docstring)
+  if(NOT DEFINED ${var})
+    set(${var} ${default})
+  endif()
+  set(${var} ${${var}} CACHE ${type} ${docstring} FORCE)
+endmacro(set_option)
+
 # parse a list of arguments and options
 # ex: mge_parse_arguments(THIS "SOURCES;DEPENDS" "FLAG" FLAG SOURCES s1 s2 s3 DEPENDS d1 d2)
 # will define the following variables:

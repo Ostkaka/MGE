@@ -6,7 +6,7 @@
 cmake_minimum_required(VERSION 2.6)
 
 # Project name
-project_name(MGE)
+project(MGE)
 
 # Include the macros file for this project
 include(${PROJECT_SOURCE_DIR}/cmake/macros.cmake)
