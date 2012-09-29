@@ -10,6 +10,17 @@ macro(set_option var default type docstring)
   set(${var} ${${var}} CACHE ${type} ${docstring} FORCE)
 endmacro(set_option)
 
+# check if a value is contained in a list
+# sets ${var} to TRUE if the value is found
+macro(mge_list_contains var value)
+  set(${var})
+  foreach(value2 ${ARGN})
+    if(${value} STREQUAL ${value2})
+      set(${var} TRUE)
+    endif()
+  endforeach()
+endmacro()
+
 # parse a list of arguments and options
 # ex: mge_parse_arguments(THIS "SOURCES;DEPENDS" "FLAG" FLAG SOURCES s1 s2 s3 DEPENDS d1 d2)
 # will define the following variables:
@@ -26,13 +37,13 @@ macro(mge_parse_arguments prefix arg_names option_names)
   set(current_arg_name)
   set(current_arg_list)
   foreach(arg ${ARGN})
-    gqe_list_contains(is_arg_name ${arg} ${arg_names})
+    mge_list_contains(is_arg_name ${arg} ${arg_names})
     if(is_arg_name)
       set(${prefix}_${current_arg_name} ${current_arg_list})
       set(current_arg_name ${arg})
       set(current_arg_list)
     else()
-      gqe_list_contains(is_option ${arg} ${option_names})
+      mge_list_contains(is_option ${arg} ${option_names})
       if(is_option)
         set(${prefix}_${arg} TRUE)
       else()
