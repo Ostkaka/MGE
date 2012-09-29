@@ -3,7 +3,7 @@
 set(HEADER_CORE ${INCROOT}/core_include.hpp)
 
 # core library additional include files
-set(INC
+set( INC
     ${INCROOT}/Core/Core_types.hpp
 	${INCROOT}/Core/interfaces/IApp.cpp
 	${INCROOT}/Core/interfaces/IState.cpp
