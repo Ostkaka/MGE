@@ -2,6 +2,15 @@
 #
 #
 
+# Make sure they are using a recent version of CMake
+cmake_minimum_required(VERSION 2.6)
+
+# Project name
+project_name(MGE)
+
+# Include the macros file for this project
+include(${PROJECT_SOURCE_DIR}/cmake/macros.cmake)
+
 # Build options
 set_option(BUILD_EXAMPLES TRUE BOOL "If example applications should be build" )
 
