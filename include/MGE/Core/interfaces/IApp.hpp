@@ -1,6 +1,5 @@
 /*
-* This is a useless header
-*
+* This is a useless header for an iapp interface
 */
 
 #ifndef   CORE_APP_HPP
@@ -14,21 +13,22 @@
 #include <SFML/Graphics.hpp>
 #include <MGE/Core/Core_types.hpp>
 
-namespace mge
+namespace MGE
 {
 
-	class MGE_EXPORT App 
+	class IApp 
 	{
 		public:
-			/**
-			* App Deconstructor
-			*/
-			App:~App():
 
 			/*
 			* App constructor
 			*/
-			App::App();
+			IApp();
+
+			/**
+			* App Deconstructor
+			*/
+			~IApp();
 
 			/**
 			*	Returns a random number
@@ -36,19 +36,21 @@ namespace mge
 			int getNumber();
 
 		protected:
-      /// Title to use for Window
-      std::string               mTitle;
-      /// Video Mode to use (width, height, bpp)
-      sf::VideoMode             mVideoMode;
-      /// Render window to draw to
-      sf::RenderWindow          mWindow;
-      /// Window settings to use when creating Render window
-      sf::ContextSettings       mContextSettings;
-      /// Window style to use when creating Render window
-      unsigned long             mWindowStyle;
-      /// Recommended Graphic Range to use based on screen height
-      GraphicRange              mGraphicRange;
-      /// Input manager for Render window above
+		  /// Title to use for Window
+		  std::string               mTitle;
+		  /// Video Mode to use (width, height, bpp)
+		  sf::VideoMode             mVideoMode;
+		  /// Render window to draw to
+		  sf::RenderWindow          mWindow;
+		  /// Window settings to use when creating Render window
+		  sf::ContextSettings       mContextSettings;
+		  /// Window style to use when creating Render window
+		  unsigned long             mWindowStyle;
+		  /// Recommended Graphic Range to use based on screen height
+		  //sf::GraphicRange              mGraphicRange;
+		  /// Input manager for Render window above
 
-	}
+	};
 }
+
+#endif /*CORE_APP_HPP*/
