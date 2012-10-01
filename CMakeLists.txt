@@ -24,21 +24,20 @@ set(MGE_VERSION "${MGE_VERSION_MAJOR}.${MGE_VERSION_MINOR}.${MGE_VERSION_PATCH}"
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/Modules/)
 
 #Find external libraires
+include_directories(
+  "${PROJECT_SOURCE_DIR}/include"
+)
 
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 
-# set up include-directories
-include_directories(
-  "${PROJECT_SOURCE_DIR}/include"
-  "${SFML_INCLUDE_DIR}"
-)
-
 # add the MGE subdirectory
+message("Configuring MGE...")
 add_subdirectory(src/MGE)
 
 # add the examples subdirectory
 if(BUILD_EXAMPLES)
+	message("Configuring examples...")
     add_subdirectory(examples)
 endif()
 

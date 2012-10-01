@@ -18,6 +18,6 @@ add_definitions(-DMGE_EXPORTS)
 add_subdirectory(Core)
 
 # install Config header include file
-install(FILES ${INCROOT}/Config.hpp
+install(FILES ${MGE_INCLUDE_DIR}/MGE_Config.hpp
         DESTINATION include/MGE
         COMPONENT dev)

@@ -19,7 +19,7 @@ find_package(SFML REQUIRED audio graphics window system)
 include_directories(${SFML_INCLUDE_DIR})
 
 # add MGE library
-add_library(MGE ${CORE_HEADER} ${INCLUDES} ${SOURCES})
+add_library(mge-core ${CORE_HEADER} ${INCLUDES} ${SOURCES})
 
 # link SFML
-target_link_libraries(MGE ${SFML_LIBRARIES})
+target_link_libraries(mge-core ${SFML_LIBRARIES})

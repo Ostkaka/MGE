@@ -4,7 +4,6 @@
 
 #ifndef   CORE_APP_HPP
 	#define   CORE_APP_HPP
-
 #include <fstream>
 #include <stddef.h>
 #include <string.h>
@@ -31,7 +30,7 @@ namespace MGE
 			~IApp();
 
 			/**
-			*	Returns a random number
+			* Returns a random number
 			*/
 			int getNumber();
 
