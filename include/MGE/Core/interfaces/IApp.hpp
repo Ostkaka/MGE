@@ -10,10 +10,8 @@
 #include <vector>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <MGE/Core/classes/StateManager.hpp>
 #include <MGE/Core/Core_types.hpp>
-
-//Temporary includes 
-#include <MGE/Core/interfaces/IState.hpp>
 
 namespace MGE
 {
@@ -177,6 +175,15 @@ namespace MGE
 		  /// Recommended Graphic Range to use based on screen height
 		  GraphicRange              mGraphicRange;
 
+			/// AssetManager for managing assets
+			//AssetManager              mAssetManager;
+			/// PropertyManager for managing IApp properties
+			//PropertyManager           mProperties;
+			/// StatManager for managing game statistics
+			//StatManager               mStatManager;
+			/// StateManager for managing states
+			StateManager              mStateManager;
+
 		private:
 			/// Static instance variables assigned at creation
 			static IApp*  gApp;
@@ -192,6 +199,7 @@ namespace MGE
 
 			/// Maximum sequential fixed update calls allowed to to meet minimum frame rate
 			int						mMaxUpdates;
+
 	};
 }
 

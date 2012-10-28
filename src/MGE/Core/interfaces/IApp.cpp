@@ -25,7 +25,7 @@ namespace MGE
 		mGraphicRange(LowRange),
 		//mAssetManager(),
 		//mStatManager(),
-		//mStateManager(),
+		mStateManager(),
 		mExitCode(0),
 		mRunning(false),
 		mUpdateRate((int)(1000.0f / 20.0f)), // 20 updates per second
@@ -220,24 +220,23 @@ namespace MGE
 		sf::Int32 anUpdateNext = anUpdateClock.getElapsedTime().asMilliseconds();
 
 		// Make sure we have at least one state active
-		//if(mStateManager.IsEmpty())
-		//{
+		if(mStateManager.isEmpty())
+		{
 			// Exit with an error since there isn't an active state
-			//Quit(StatusAppInitFailed);
-		//}
+			quit(StatusAppInitFailed);
+		}
 
 		// Loop while IsRunning returns true
-
-		while(isRunning() && mWindow.isOpen() /*&& !mStateManager.IsEmpty()*/)
+		while(isRunning() && mWindow.isOpen() && !mStateManager.isEmpty())
 		{
 			// Get the currently active state
-			//IState& anState = mStateManager.GetActiveState();
+			IState& anState = mStateManager.getActiveState();
 
 			// Count the number of sequential UpdateFixed loop calls
 			int anUpdates = 0;
 
 			// Process any available input
-			//processInput(anState);
+			processInput(anState);
 
 			sf::Int32 anUpdateTime = anUpdateClock.getElapsedTime().asMilliseconds();
 
@@ -245,22 +244,21 @@ namespace MGE
 			while((anUpdateTime - anUpdateNext) >= mUpdateRate && anUpdates++ < mMaxUpdates)
 			{
 				// Let the current active state perform fixed updates next
-				//anState.updateFixed();
+				anState.updateFixed();
 
 				// Let the StatManager perfom its updates
-				//mStatManager.UpdateFixed();
+				//mStatManager.updateFixed();
 
 				// Compute the next appropriate UpdateFixed time
 				anUpdateNext += mUpdateRate;
-			} // while((anUpdateTime - anUpdateNext) >= mUpdateRate && anUpdates <= mMaxUpdates)
+			} 
 
 			// Let the current active state perform its variable update
-
 			// Convert to floating point value of seconds for SFML 2.0
-			//anState.UpdateVariable(anFrameClock.restart().asSeconds());
+			anState.updateVariable(anFrameClock.restart().asSeconds());
 
 			// Let the current active state draw stuff
-			//anState.draw();
+			anState.draw();
 
 			// Let the StatManager perform its drawing
 			//mStatManager.Draw();
@@ -269,7 +267,7 @@ namespace MGE
 			mWindow.display();
 
 			// Give the state manager a chance to delete any pending states
-			//mStateManager.cleanup(); 
+			mStateManager.cleanup(); 
 		} 
 	}
 
@@ -296,8 +294,9 @@ namespace MGE
 			case sf::Event::Resized:      // Window resized
 				break;
 			default:                      // Current active state will handle
-				std::cout << "Default " << std::endl;
-				//theState.HandleEvents(anEvent);
+				theState.handleEvents(tEvent);
+				//std::cout << "Default " << std::endl;
+				
 			} 
 		} 
 	}

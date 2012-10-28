@@ -83,7 +83,14 @@ namespace MGE
     // Values from +-100 to +-199 are reserved for File status responses
   };
 
- /// Declare Asset ID typedef which is used for identifying Asset objects
+	//Forward declarations for interfaces
+	class IApp;
+	class IState;
+
+	//Forward declarations for classes
+	class StateManager;
+
+	/// Declare Asset ID typedef which is used for identifying Asset objects
   typedef std::string typeAssetID;
 
   /// Declare Asset Handler ID typedef which is used for identifying Asset Handler objects
