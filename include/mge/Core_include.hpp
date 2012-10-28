@@ -3,19 +3,19 @@
  * variables.
  */
 
-#ifndef   MGE_CORE_HPP
-	#define   MGE_CORE_HPP
+#ifndef   MGE_CORE_INCLUDE_HPP
+	#define   MGE_CORE_INCLUDE_HPP
 
 /////////////////////////////////////////////////////////////////////////////
 // Headers
 /////////////////////////////////////////////////////////////////////////////
-#include <MGE/MGE_config.hpp>
+//#include <MGE/MGE_config.hpp>
 
 // MGE includes
 #include <MGE/Core/interfaces/IApp.hpp>
 #include <MGE/Core/interfaces/IState.hpp>
 
-#endif  // MGE_CORE_HPP
+#endif  // MGE_CORE_INCLUDE_HPP
 
 /**
  * @defgroup Core MGE Core module

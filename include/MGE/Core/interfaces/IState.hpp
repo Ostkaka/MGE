@@ -1,27 +1,30 @@
 /*
 * This is the abstract IState class in MGE 
 */
+#ifndef   CORE_ISTATE_HPP
+	#define   CORE_ISTATE_HPP
 
 #include <MGE/Core/Core_types.hpp>
 
 namespace MGE
 {
 
-	class IState {
-	
-	public:
-		/**
-		*
-		*/
-		IState(){};
+	class IState  {
+    	
+		public:
+			/**
+			* Basic constructor
+			*/
+			IState(){};
 
-		/**
-		*
-		*/
-		~IState(){};
+			/**
+			* Basic deconstructor
+			*/
+			~IState(){};
 
-	protected:
-
+		protected:
 	};
 
 }
+
+#endif /* CORE_ISTATE_HPP */

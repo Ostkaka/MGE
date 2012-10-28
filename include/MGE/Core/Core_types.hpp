@@ -3,17 +3,17 @@
  * variables.
  */
 
-#ifndef   MGE_CORE_HPP
-	#define   MGE_CORE_HPP
+#ifndef   MGE_CORE_TYPES_HPP
+	#define   MGE_CORE_TYPES_HPP
 
 /////////////////////////////////////////////////////////////////////////////
 // Headers
 /////////////////////////////////////////////////////////////////////////////
-#include <MGE/MGE_config.hpp>
-
-// MGE includes
-#include <MGE/Core/interfaces/IApp.hpp>
-#include <MGE/Core/interfaces/IState.hpp>
+//#include <MGE/MGE_config.hpp>
+#include <map>
+#include <string>
+#include <vector>
+//#include <GQE/Config.hpp>
 
 #define INFO_LEVEL   0  ///< Defines the value for MGE::SeverityInfo
 #define WARN_LEVEL   1  ///< Defines the value for MGE::SeverityWarning
@@ -104,13 +104,6 @@ namespace MGE
   /// Declare NameValueIter typedef which is used for name,value pair maps
   typedef std::map<const std::string, const std::string>::iterator typeNameValueIter;
 
-
 }
 
-#endif  // MGE_CORE_HPP
-
-/**
- * @defgroup Core MGE Core module
- * The MGE Core module/library provides all basic classes 
- *
- */
+#endif  //MGE_CORE_TYPES_HPP

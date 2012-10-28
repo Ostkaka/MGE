@@ -1,7 +1,6 @@
 /*
-* Bla bla bla
+* 
 */
-
 #include <assert.h>
 #include <MGE/Core/interfaces/IApp.hpp>
 #include <MGE/Core/interfaces/IState.hpp>
@@ -16,9 +15,7 @@ namespace MGE
 	/// Single instance of the most recently created App class
 	IApp* IApp::gApp = NULL;
 
-
 	// Implementations
-
 	IApp::IApp( const std::string theTitle /*= "MGE Application"*/ ):
 		mTitle(theTitle),
 		mVideoMode(DEFAULT_VIDEO_WIDTH, DEFAULT_VIDEO_HEIGHT, DEFAULT_VIDEO_BPP),
@@ -31,13 +28,12 @@ namespace MGE
 		//mStateManager(),
 		mExitCode(0),
 		mRunning(false),
-		mUpdateRate((Uint32)(1000.0f / 20.0f)), // 20 updates per second
+		mUpdateRate((int)(1000.0f / 20.0f)), // 20 updates per second
 		mMaxUpdates(5)
 	{
 		// Save our global App pointer
 		gApp = this;
 	}
-
 
 	IApp::~IApp()
 	{
@@ -51,12 +47,12 @@ namespace MGE
 		}
 	}
 
-	IApp* IApp::GetApp(void)
+	IApp* IApp::getApp(void)
 	{
 		return gApp;
 	}
 
-	void IApp::ProcessArguments( int argc, char* argv[] )
+	void IApp::processArguments( int argc, char* argv[] )
 	{
 		//This is to be implemented
 
@@ -102,7 +98,7 @@ namespace MGE
 
 	}
 
-	bool IApp::isRunning(void) const
+	bool IApp::isRunning() const
 	{
 		return mRunning;
 	}
@@ -119,26 +115,26 @@ namespace MGE
 	float IApp::getUpdateRate(void) const
 	{
 		// Return the current set UpdateFixed game loop rate
-		return (1000.0f / (float)mUpdateRate);
+		return (1000.0f / (float)(mUpdateRate));
 	}
 
-	void IApp::setMaxUpdates(Uint32 maxUpdates)
+	void IApp::setMaxUpdates(int newMaxUpdates)
 	{
 		// Validate Max Updates range first
-		if(200 >= maxUpdates && 1 <= maxUpdates)
+		if(200 >= newMaxUpdates && 1 <= newMaxUpdates)
 		{
 			// Set max updates value to theMaxUpdates value provided
-			mMaxUpdates = maxUpdates;
+			mMaxUpdates = newMaxUpdates;
 		}
 	}
 
-	void IApp::Quit(int theExitCode)
+	void IApp::quit(int theExitCode)
 	{
 		mExitCode = theExitCode;
 		mRunning = false;
 	}
 
-	const GraphicRange IApp::calculateRange(Uint32 theHeight) const
+	const GraphicRange IApp::calculateRange(int theHeight) const
 	{
 		// Default to LowRange
 		GraphicRange anResult = LowRange;
@@ -167,12 +163,49 @@ namespace MGE
 
 	void IApp::initRenderer()
 	{
-		//TODO
+		
+		//SLOG(App_InitRenderer, SeverityInfo) << std::endl;
+		//ConfigAsset anSettingsConfig(IApp::APP_SETTINGS);
+
+		// Are we in Fullscreen mode?
+		//if(anSettingsConfig.GetAsset().GetBool("window","fullscreen",false))
+		//{
+		//	mWindowStyle = sf::Style::Fullscreen;
+		//}
+
+		// What size window does the user want?
+		/*mVideoMode.width =
+			anSettingsConfig.GetAsset().GetUint32("window","width",DEFAULT_VIDEO_WIDTH);
+		mVideoMode.height =
+			anSettingsConfig.GetAsset().GetUint32("window","height",DEFAULT_VIDEO_HEIGHT);
+		mVideoMode.bitsPerPixel =
+			anSettingsConfig.GetAsset().GetUint32("window","depth",DEFAULT_VIDEO_BPP);*/
+
+		// For Fullscreen, verify valid VideoMode, otherwise revert to defaults for Fullscreen
+		if(sf::Style::Fullscreen == mWindowStyle && false == mVideoMode.isValid())
+		/*{
+			mVideoMode.width = DEFAULT_VIDEO_WIDTH;
+			mVideoMode.height = DEFAULT_VIDEO_HEIGHT;
+			mVideoMode.bitsPerPixel = DEFAULT_VIDEO_BPP;
+		}*/
+
+		mVideoMode.width = DEFAULT_VIDEO_WIDTH;
+		mVideoMode.height = DEFAULT_VIDEO_HEIGHT;
+		mVideoMode.bitsPerPixel = DEFAULT_VIDEO_BPP;
+
+		// Calculate and set GraphicRange value
+		setGraphicRange(calculateRange(mVideoMode.height));
+
+		// Create a RenderWindow object using VideoMode object above
+		mWindow.create(mVideoMode, mTitle, mWindowStyle, mContextSettings);
+
+		// Use Vertical Sync
+		mWindow.setVerticalSyncEnabled(true);
 	}
 
 	void IApp::gameLoop(void)
 	{
-		SLOG(App_GameLoop, SeverityInfo) << std::endl;
+		//SLOG(App_GameLoop, SeverityInfo) << std::endl;
 
 		// Clock used in restricting Update loop to a fixed rate
 		sf::Clock anUpdateClock;
@@ -198,13 +231,13 @@ namespace MGE
 		while(isRunning() && mWindow.isOpen() /*&& !mStateManager.IsEmpty()*/)
 		{
 			// Get the currently active state
-			IState& anState = mStateManager.GetActiveState();
+			//IState& anState = mStateManager.GetActiveState();
 
 			// Count the number of sequential UpdateFixed loop calls
-			Uint32 anUpdates = 0;
+			int anUpdates = 0;
 
 			// Process any available input
-			processInput(anState);
+			//processInput(anState);
 
 			sf::Int32 anUpdateTime = anUpdateClock.getElapsedTime().asMilliseconds();
 
@@ -212,7 +245,7 @@ namespace MGE
 			while((anUpdateTime - anUpdateNext) >= mUpdateRate && anUpdates++ < mMaxUpdates)
 			{
 				// Let the current active state perform fixed updates next
-				anState.UpdateFixed();
+				//anState.updateFixed();
 
 				// Let the StatManager perfom its updates
 				//mStatManager.UpdateFixed();
@@ -227,7 +260,7 @@ namespace MGE
 			//anState.UpdateVariable(anFrameClock.restart().asSeconds());
 
 			// Let the current active state draw stuff
-			anState.Draw();
+			//anState.draw();
 
 			// Let the StatManager perform its drawing
 			//mStatManager.Draw();
@@ -263,9 +296,28 @@ namespace MGE
 			case sf::Event::Resized:      // Window resized
 				break;
 			default:                      // Current active state will handle
+				std::cout << "Default " << std::endl;
 				//theState.HandleEvents(anEvent);
 			} 
 		} 
+	}
+
+	void IApp::cleanup(void)
+	{
+		//SLOG(App_Cleanup, SeverityInfo) << std::endl;
+
+		// Give the StatManager a chance to de-initialize
+		//mStatManager.DeInit();
+
+		// Close the Render window if it is still open
+		if(mWindow.isOpen())
+		{
+			// Show the Mouse cursor
+			mWindow.setMouseCursorVisible(true);
+
+			// Close the Render window
+			mWindow.close();
+		}
 	}
 
 }

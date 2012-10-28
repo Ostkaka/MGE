@@ -12,12 +12,18 @@
 #include <SFML/Graphics.hpp>
 #include <MGE/Core/Core_types.hpp>
 
+//Temporary includes 
+#include <MGE/Core/interfaces/IState.hpp>
+
 namespace MGE
 {
-
 	class IApp 
 	{
 		public:
+			/**
+       * IApp deconstructor
+       */
+      virtual ~IApp();
 
 			/**
 			* Will return the most recent created IApp based class. Used for retrieving 
@@ -30,7 +36,7 @@ namespace MGE
 			* @param[in] argc is the number of arguments
 			* @param[in] argv are the actual arguments
 			*/
-			virtual void ProcessArguments(int argc, char* argv[]);
+			virtual void processArguments(int argc, char* argv[]);
 
 			/**
 			*
@@ -42,7 +48,7 @@ namespace MGE
 			* Used to check in case the application is still running
 			* @return True if the application is running or False if it still is
 			*/
-			bool isRunnning();
+			bool isRunning() const;
 
       /**
        * SetGraphicRange will set theGraphicRange value provided if it fits
@@ -57,7 +63,7 @@ namespace MGE
        * used.
        * @return update rate in Hz (updates per second)
        */
-      float getUpdateRate(void) const;
+      float getUpdateRate() const;
 
       /*
        * Set the maximum number of sequential updates
@@ -65,7 +71,7 @@ namespace MGE
        * struggling, you should set theMaxUpdates to 1.
        * @param[in] theMaxUpdates range is [1,200]
        */
-      //void setMaxUpdates(Uint32 theMaxUpdates);
+      void setMaxUpdates(int newMaxUpdates);
 
 			 /**
        * Quit will signal the Application to stop running.
@@ -104,13 +110,17 @@ namespace MGE
        * Responsible for performing any custom last minute
        * Application cleanup steps before exiting the Application.
        */
-      virtual void customCleanup(void) = 0;
+      virtual void customCleanup() = 0;
 
 	private:
 
-		/*
-		* const GraphicRange CalculateRange(Uint32 theHeight) const;
-		*/
+    /**
+      * calculateRange is responsible for returning the best GraphicRange
+      * value to use for the given window height provided.
+      * @param[in] theHeight to use as part of calculation.
+      * @return a GraphicRange enum value computed
+      */
+		const GraphicRange calculateRange(int theHeight) const;
 
 		/**
      * Initializes the Rendering window that
@@ -181,7 +191,7 @@ namespace MGE
 			float					mUpdateRate;
 
 			/// Maximum sequential fixed update calls allowed to to meet minimum frame rate
-			Uint32				maxUpdates;
+			int						mMaxUpdates;
 	};
 }
 

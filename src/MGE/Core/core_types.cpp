@@ -1,10 +1,10 @@
 /**
  * Provides the MGE Core internal global or static variable declarations.
  *
- * @file src/MGE/Core/core_types.cpp
+ * @file src/MGE/Core/Core_types.cpp
  */
 
-#include <MGE/Core/core_types.hpp>
+#include <MGE/Core/Core_types.hpp>
 
 namespace MGE
 {
