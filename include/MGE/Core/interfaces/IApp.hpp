@@ -20,16 +20,6 @@ namespace MGE
 		public:
 
 			/**
-			* App constructor
-			*/
-			IApp();
-
-			/**
-			* App Deconstructor
-			*/
-			virtual ~IApp();
-
-			/**
 			* Will return the most recent created IApp based class. Used for retrieving 
 			* assets among other things
 			*/
@@ -54,11 +44,13 @@ namespace MGE
 			*/
 			bool isRunnning();
 
-			/*
-			* 
-			*
-			*/
-			//setGraphicsRange()
+      /**
+       * SetGraphicRange will set theGraphicRange value provided if it fits
+       * within the GraphicRange enumeration. It is typically called with the
+       * result of CalculateRange in the InitRenderer method.
+       * @param[in] theGraphicRange to set
+       */
+      void setGraphicRange(const GraphicRange theGraphicRange);
 
 			/**
        * Returns the current game loop update rate being
@@ -75,7 +67,10 @@ namespace MGE
        */
       //void setMaxUpdates(Uint32 theMaxUpdates);
 
-
+			 /**
+       * Quit will signal the Application to stop running.
+       * @param[in] exitCode to use when the Run method returns
+       */
 			void quit(int exitCode = 1);
 
 
@@ -91,7 +86,7 @@ namespace MGE
        * Registers custom IAssetHandler derived classes for a specific game application.
 			 *
        */
-      virtual void initAssetHandlers() = 0;
+      virtual void initCustomAssetHandlers() = 0;
 
       /**
        * Responsible for monitoring IsRunning and exiting when the
@@ -109,8 +104,45 @@ namespace MGE
        * Responsible for performing any custom last minute
        * Application cleanup steps before exiting the Application.
        */
-      virtual void cleanup(void) = 0;
+      virtual void customCleanup(void) = 0;
 
+	private:
+
+		/*
+		* const GraphicRange CalculateRange(Uint32 theHeight) const;
+		*/
+
+		/**
+     * Initializes the Rendering window that
+     * will be used to display the games graphics.
+     */
+    void initRenderer();
+
+		/**
+     * Responsible for registering and loading the
+     * application configuration file (settings.cfg) 
+		 */
+    void initConfig();
+
+    /**
+      * Cleanup is responsible for performing any last minute Application
+      * cleanup steps before exiting the Application.
+      */
+    void cleanup(void);
+
+    /**
+      * App copy constructor is private because we do not allow copies of
+      * singleton class. Intentionally undefined.
+      */
+    IApp(const IApp&);               
+
+    /**
+      * Assignment operator is private because copies
+      * of our Singleton class are not allowed. Intentionally undefined.
+      */
+    IApp& operator=(const IApp&);    
+
+		protected:
 		  ///CONSTANTS
 			/// Default Video width
 			static const unsigned int DEFAULT_VIDEO_WIDTH = 800;
@@ -133,9 +165,23 @@ namespace MGE
 		  /// Window style to use when creating Render window
 		  unsigned long             mWindowStyle;
 		  /// Recommended Graphic Range to use based on screen height
-		  //sf::GraphicRange              mGraphicRange;
-		  /// Input manager for Render window above
+		  GraphicRange              mGraphicRange;
 
+		private:
+			/// Static instance variables assigned at creation
+			static IApp*  gApp;
+
+			/// Exit code that is returned upon existing the application
+			int						mExitCode; 
+
+			/// TRUE if the app is still running
+			bool					mRunning;
+
+			/// Value that holds the update rate in milliseconds used for a fixed loop time
+			float					mUpdateRate;
+
+			/// Maximum sequential fixed update calls allowed to to meet minimum frame rate
+			Uint32				maxUpdates;
 	};
 }
 

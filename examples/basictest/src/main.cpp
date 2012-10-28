@@ -2,11 +2,5 @@
 #include <iostream>
 
 int main(){
-
-	MGE::IApp * o = new MGE::IApp();
-
-	std::cout << o->getNumber() << std::endl;
-
-	delete o;
-
+	std::cout << "this is not a game " << std::endl;
 } 
