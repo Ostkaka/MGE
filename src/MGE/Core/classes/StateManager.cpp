@@ -74,14 +74,14 @@ namespace MGE
 		mApp = NULL;
 	}
 
-	void StateManager::registerApp(IApp* theApp)
+	void StateManager::registerApp(IApp* app)
 	{
 		// Check that our pointer is good
-		assert(NULL != theApp && "StateManager::registerApp() theApp pointer is bad");
+		assert(NULL != app && "StateManager::registerApp() theApp pointer is bad");
 
 		// Make a note of the pointer
 		assert(NULL == mApp && "StateManager::registerApp() theApp pointer already registered");
-		mApp = theApp;
+		mApp = app;
 	}
 
 	bool StateManager::isEmpty(void)
@@ -115,7 +115,7 @@ namespace MGE
 	void StateManager::addInactiveState(IState* state)
 	{
 		// Check that they didn't provide a bad pointer
-		assert(NULL != theState && "StateManager::addInactiveState() received bad pointer");
+		assert(NULL != state && "StateManager::addInactiveState() received bad pointer");
 
 		// Log the adding of each state
 		//ILOG() << "StateManager::AddInactiveState(" << theState->GetID() << ")" << std::endl;
