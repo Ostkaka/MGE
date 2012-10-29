@@ -296,7 +296,6 @@ namespace MGE
 			default:                      // Current active state will handle
 				theState.handleEvents(tEvent);
 				//std::cout << "Default " << std::endl;
-				
 			} 
 		} 
 	}

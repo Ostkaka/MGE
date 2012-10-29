@@ -3,7 +3,7 @@ project(basictest)
 set(SRCROOT ${PROJECT_SOURCE_DIR}/src)
 
 # all source files
-FILE( GLOB SOURCE ${SRCROOT}/*.cpp )
+FILE( GLOB SOURCE ${SRCROOT}/*.cpp ${SRCROOT}/*.hpp)
 
 # find external SFML libraries
 if(WINDOWS)
