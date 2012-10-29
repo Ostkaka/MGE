@@ -88,10 +88,14 @@ namespace MGE
 
 			/**
        * Registers custom IAssetHandler derived classes for a specific game application.
-			 *
-       */
+			*/
       virtual void initCustomAssetHandlers() = 0;
 
+			/*
+			* Inits the gamestates for the application
+			*/
+			virtual void initCustomGameStates() = 0;
+			
       /**
        * Responsible for monitoring IsRunning and exiting when the
        * Application is done.
@@ -108,7 +112,7 @@ namespace MGE
        * Responsible for performing any custom last minute
        * Application cleanup steps before exiting the Application.
        */
-      virtual void customCleanup() = 0;
+      virtual void handleCustomCleanup() = 0;
 
 	private:
 
@@ -136,7 +140,7 @@ namespace MGE
       * Cleanup is responsible for performing any last minute Application
       * cleanup steps before exiting the Application.
       */
-    void cleanup(void);
+    void cleanup();
 
     /**
       * App copy constructor is private because we do not allow copies of

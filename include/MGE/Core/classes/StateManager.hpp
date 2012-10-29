@@ -71,7 +71,7 @@ namespace MGE
       * getActiveState will return the current active state on the stack.
       * @return pointer to the current active state on the stack
       */
-      IState& getActiveState(void);
+      IState& getActiveState();
 
 			/**
       * inactivateActiveState will cause the current active state to
@@ -79,7 +79,7 @@ namespace MGE
       * call DeInit) and return to the previous state on the stack. This
       * will cause the state to retain its assets.
       */
-      void inactivateActivateState(void);
+      void inactivateActivateState();
 
 			/**
        * dropActiveState will cause the current active state to uninitialize
@@ -87,13 +87,13 @@ namespace MGE
        * previous state on the stack. When a state is uninitialized its
        * assets are unloaded.
        */
-      void dropActiveState(void);
+      void dropActiveState();
 
 			/**
        * resetActiveState will cause the current active state to be reset
        * by calling the ReInit method for that state. 
        */
-      void resetActiveState(void);
+      void resetActiveState();
 
 			 /**
        * removeActiveState will cause the current active state to be removed
@@ -101,7 +101,7 @@ namespace MGE
        * been removed, you must re-add the state.  If you just want to
        * inactivate the current active state then use dropActiveState instead.
        */
-      void removeActiveState(void);
+      void removeActiveState();
 
 			/**
        * setActiveState will find the state specified by theStateID and make

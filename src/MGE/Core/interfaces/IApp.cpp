@@ -79,7 +79,7 @@ namespace MGE
 		gameLoop();
 
 		// Perform cleanup for custom configurations
-		customCleanup();
+		handleCustomCleanup();
 
 		// Handle internal IApp cleaning
 		cleanup();
@@ -300,7 +300,7 @@ namespace MGE
 		} 
 	}
 
-	void IApp::cleanup(void)
+	void IApp::cleanup()
 	{
 		//SLOG(App_Cleanup, SeverityInfo) << std::endl;
 

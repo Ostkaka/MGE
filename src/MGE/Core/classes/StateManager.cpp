@@ -249,4 +249,193 @@ namespace MGE
 			}
 		}
 	}
+
+	void StateManager::resetActiveState()
+	{
+		// Is there no currently active state to reset?
+		if(!mStack.empty())
+		{
+			// Retrieve the currently active state
+			IState* anState = mStack.back();
+
+			// Log the resetting of an active state
+			//ILOG() << "StateManager::ResetActiveState(" << anState->GetID() << ")" << std::endl;
+
+			// Pause the currently active state
+			anState->pause();
+
+			// Call the ReInit method to Reset the currently active state
+			anState->reInit();
+
+			// Resume the currently active state
+			anState->resume();
+
+			// Don't keep pointers around we don't need anymore
+			anState = NULL;
+		}
+		else
+		{
+			// Quit the application with an error status response
+			if(NULL != mApp)
+			{
+				mApp->quit(StatusAppStackEmpty);
+			}
+			return;
+		}
+	}
+
+	void StateManager::removeActiveState(void)
+	{
+		// Is there no currently active state to drop?
+		if(!mStack.empty())
+		{
+			// Retrieve the currently active state
+			IState* anState = mStack.back();
+
+			// Log the removing of an active state
+			//ILOG() << "StateManager::RemoveActiveState(" << anState->GetID() << ")" << std::endl;
+
+			// Pause the currently active state
+			anState->pause();
+
+			// Deinitialize the currently active state before we pop it off the stack
+			anState->deInit();
+
+			// Pop the currently active state off the stack
+			mStack.pop_back();
+
+			// Move this state to our dropped stack
+			mDead.push_back(anState);
+
+			// Don't keep pointers around we don't need anymore
+			anState = NULL;
+		}
+		else
+		{
+			// Quit the application with an error status response
+			if(NULL != mApp)
+			{
+				mApp->quit(StatusAppStackEmpty);
+			}
+			return;
+		}
+
+		// Is there another state to activate? then call Resume to activate it
+		if(!mStack.empty())
+		{
+			// Has this state ever been initialized?
+			if(mStack.back()->isInitComplete())
+			{
+				// Resume the new active state
+				mStack.back()->resume();
+			}
+			else
+			{
+				// Initialize the new active state
+				mStack.back()->doInit();
+			}
+		}
+		else
+		{
+			// There are no states on the stack, exit the program
+			if(NULL != mApp)
+			{
+				mApp->quit(StatusAppOK);
+			}
+		}
+	}
+
+	void StateManager::setActiveState(typeStateID theStateID)
+	{
+		std::vector<IState*>::iterator it;
+
+		// Find the state that matches theStateID
+		for(it=mStack.begin(); it < mStack.end(); it++)
+		{
+			// Does this state match theStateID? then activate it as the new
+			// currently active state
+			if((*it)->getID() == theStateID)
+			{
+				// Get a pointer to soon to be currently active state
+				IState* anState = *it;
+
+				// Log the setting of a previously active state as the current active state
+				//ILOG() << "StateManager::SetActiveState(" << anState->GetID() << ")" << std::endl;
+
+				// Erase it from the list of previously active states
+				mStack.erase(it);
+
+				// Is there a state currently running? then Pause it
+				if(!mStack.empty())
+				{
+					// Pause the currently running state since we are changing the
+					// currently active state to the one specified by theStateID
+					mStack.back()->pause();
+				}
+
+				// Add the new active state
+				mStack.push_back(anState);
+
+				// Don't keep pointers we don't need around
+				anState = NULL;
+
+				// Has this state ever been initialized?
+				if(mStack.back()->isInitComplete())
+				{
+					// Resume the new active state
+					mStack.back()->resume();
+				}
+				else
+				{
+					// Initialize the new active state
+					mStack.back()->doInit();
+				}
+
+				// Exit our find loop
+				break;
+			}
+		} 
+	}
+
+	void StateManager::cleanup()
+	{
+		// Always call our cleanup events with our pointer when this method is called
+		//mCleanupEvents.DoEvents();
+
+		// Remove one of our dead states
+		if(!mDead.empty())
+		{
+			// Retrieve the dead state
+			IState* anState = mDead.back();
+			assert(NULL != anState && "StateManager::HandleCleanup() invalid dropped state pointer");
+
+			// Pop the dead state off the stack
+			mDead.pop_back();
+
+			// Call the DeInit if it hasn't been called yet
+			if(anState->isInitComplete())
+			{
+				anState->deInit();
+			}
+
+			// Handle the cleanup before we delete anState
+			anState->cleanup();
+
+			// Just delete the state now
+			delete anState;
+
+			// Don't keep pointers around we don't need
+			anState = NULL;
+		}
+
+		// Make sure we still have an active state
+		if(NULL == mStack.back())
+		{
+			// There are no states on the stack, exit the program
+			if(NULL != mApp)
+			{
+				mApp->quit(StatusAppOK);
+			}
+		}
+	}
 }

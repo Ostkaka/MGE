@@ -14,11 +14,7 @@
 // MGE includes
 #include <MGE/Core/interfaces/IApp.hpp>
 #include <MGE/Core/interfaces/IState.hpp>
+#include <MGE/Core/classes/StateManager.hpp>
 
 #endif  // MGE_CORE_INCLUDE_HPP
 
-/**
- * @defgroup Core MGE Core module
- * The MGE Core module/library provides all basic classes 
- *
- */
