@@ -63,6 +63,18 @@ namespace MGE
        */
       float getUpdateRate() const;
 
+			      /**
+       * SetUpdateRate will set the game loop update rate to theRate specified
+       * (from 1 Hz to 200 Hz, any other value outside this range will not be
+       * accepted). The update rate is always fixed to provide a deterministic
+       * game loop. But the actual updates per second is affected by the
+       * performance of the system and the complexity of your UpdateFixed game
+       * logic. Use SetMaxUpdates to improve the frames per second on lower
+       * performing systems.
+       * @param[in] theRate in Hz (updates per second) range is [1,200]
+       */
+      void setUpdateRate(float rate);
+
       /*
        * Set the maximum number of sequential updates
        * allowed in any given game loop. If your FPS is
@@ -154,7 +166,7 @@ namespace MGE
       */
     IApp& operator=(const IApp&);    
 
-		protected:
+		public:
 		  ///CONSTANTS
 			/// Default Video width
 			static const unsigned int DEFAULT_VIDEO_WIDTH = 800;

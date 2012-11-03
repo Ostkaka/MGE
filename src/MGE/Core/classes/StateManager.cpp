@@ -84,7 +84,7 @@ namespace MGE
 		mApp = app;
 	}
 
-	bool StateManager::isEmpty(void)
+	bool StateManager::isEmpty()
 	{
 		return mStack.empty();
 	}
@@ -109,7 +109,7 @@ namespace MGE
 		mStack.push_back(state);
 
 		// Initialize the new active state
-		mStack.back()->doInit();
+		mStack.back()->init();
 	}
 
 	void StateManager::addInactiveState(IState* state)
@@ -174,7 +174,7 @@ namespace MGE
 			else
 			{
 				// Initialize the new active state
-				mStack.back()->doInit();
+				mStack.back()->init();
 			}
 		}
 		else
@@ -237,7 +237,7 @@ namespace MGE
 			else
 			{
 				// Initialize the new active state
-				mStack.back()->doInit();
+				mStack.back()->init();
 			}
 		}
 		else
@@ -265,7 +265,7 @@ namespace MGE
 			anState->pause();
 
 			// Call the ReInit method to Reset the currently active state
-			anState->reInit();
+			anState->reset();
 
 			// Resume the currently active state
 			anState->resume();
@@ -332,7 +332,7 @@ namespace MGE
 			else
 			{
 				// Initialize the new active state
-				mStack.back()->doInit();
+				mStack.back()->init();
 			}
 		}
 		else
@@ -388,7 +388,7 @@ namespace MGE
 				else
 				{
 					// Initialize the new active state
-					mStack.back()->doInit();
+					mStack.back()->init();
 				}
 
 				// Exit our find loop

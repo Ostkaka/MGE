@@ -31,7 +31,7 @@ namespace MGE
 		return mStateID;
 	}
 
-	void IState::doInit(void)
+	void IState::init(void)
 	{
 		//ILOG() << "IState::DoInit(" << mStateID << ")" << std::endl;
 
@@ -69,17 +69,17 @@ namespace MGE
 		}
 	}
 
-	bool IState::isInitComplete(void)
+	bool IState::isInitComplete()
 	{
 		return mInit;
 	}
 
-	bool IState::isPaused(void)
+	bool IState::isPaused()
 	{
 		return mPaused;
 	}
 
-	void IState::pause(void)
+	void IState::pause()
 	{
 		//ILOG() << "IState::Pause(" << mStateID << ")" << std::endl;
 
@@ -90,7 +90,7 @@ namespace MGE
 		}
 	}
 
-	void IState::resume(void)
+	void IState::resume()
 	{
 		//ILOG() << "IState::Resume(" << mStateID << ")" << std::endl;
 

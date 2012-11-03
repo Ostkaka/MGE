@@ -17,12 +17,13 @@ TestApp::~TestApp()
 
 void TestApp::initCustomAssetHandlers()
 {
-
+	//Test custom asset stuff
 }
 
 void TestApp::initCustomGameStates()
 {
-
+	mStateManager.addActiveState(new(std::nothrow) GameState(*this));
+	mStateManager.addActiveState(new(std::nothrow) SplashState(*this,5));
 }
 
 void TestApp::handleCustomCleanup()

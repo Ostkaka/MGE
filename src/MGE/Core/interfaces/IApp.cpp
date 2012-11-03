@@ -47,7 +47,7 @@ namespace MGE
 		}
 	}
 
-	IApp* IApp::getApp(void)
+	IApp* IApp::getApp()
 	{
 		return gApp;
 	}
@@ -64,7 +64,11 @@ namespace MGE
 		std::cout << "Applications is running" << std::endl;
 		//Logger stuff
 
-		//Register 
+		//Set running as true
+		mRunning = true;
+
+		// Register our App pointer with our StateManager
+		mStateManager.registerApp(this);
 
 		//Register custom asset classes
 		initCustomAssetHandlers();
@@ -74,6 +78,9 @@ namespace MGE
 
 		//Opens and inits the render vindow
 		initRenderer();
+
+		//Inits the custom game states
+		initCustomGameStates();
 
 		// Do gameLoop of the running flag is active
 		gameLoop();
@@ -116,6 +123,15 @@ namespace MGE
 	{
 		// Return the current set UpdateFixed game loop rate
 		return (1000.0f / (float)(mUpdateRate));
+	}
+
+	void IApp::setUpdateRate(float rate)
+	{
+		if(200.0f >= rate && 1.0f <= rate)
+		{
+			//miliseconds
+			mUpdateRate = (int)(1000.0f / rate);
+		}
 	}
 
 	void IApp::setMaxUpdates(int newMaxUpdates)
@@ -286,10 +302,10 @@ namespace MGE
 				quit(StatusAppOK);
 				break;
 			case sf::Event::GainedFocus:  // Window gained focus
-				//theState.Resume();
+				theState.resume();
 				break;
 			case sf::Event::LostFocus:    // Window lost focus
-				//theState.Pause();
+				theState.pause();
 				break;
 			case sf::Event::Resized:      // Window resized
 				break;
@@ -317,5 +333,4 @@ namespace MGE
 			mWindow.close();
 		}
 	}
-
 }

@@ -9,5 +9,12 @@ int main(){
 
 	MGE::IApp * app = new(std::nothrow) TestApp();
 
+	exitCode = app->run();
+
+	delete app;
+
+	app = NULL;
+
+	return exitCode;
 
 } 

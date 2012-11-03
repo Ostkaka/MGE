@@ -31,18 +31,18 @@ namespace MGE
       const typeStateID getID() const;
 			
 		  /**
-       * DoInit is responsible for initializing this State.  HandleCleanup will
+       * init is responsible for initializing this State.  HandleCleanup will
        * be called if mCleanup is true so Derived classes should always call
        * IState::DoInit() first before initializing their assets.
        */
-      virtual void doInit();
+      virtual void init();
 
       /**
-       * ReInit is responsible for Reseting this state when the
+       * reset is responsible for Reseting this state when the
        * StateManager::ResetActiveState() method is called.  This way a Game
        * State can be restarted without unloading and reloading the game assets
        */
-      virtual void reInit() = 0;
+      virtual void reset() = 0;
 				
 			/**
 			* DeInit is responsible for marking this state to be cleaned up
@@ -115,7 +115,7 @@ namespace MGE
        * 3) If this state is not initialized: total elapsed time from DoInit to DeInit
        * @return total elapsed time as described above.
        */
-      float getElapsedTime(void) const;
+      float getElapsedTime() const;
 
 	  protected:
       /// Address to the App class

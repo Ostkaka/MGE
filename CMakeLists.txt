@@ -3,7 +3,7 @@
 #
 
 # Make sure they are using a recent version of CMake
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
 # Project name
 project(MGE)
@@ -26,9 +26,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/Modules/)
 #Find external libraires
 include_directories(
   "${PROJECT_SOURCE_DIR}/include"
-  "${PROJECT_SOURCE_DIR}/include/MGE"
-  "${PROJECT_SOURCE_DIR}/include/MGE/Core"
-  "${PROJECT_SOURCE_DIR}/include/MGE/Core/interfaces"
 )
 
 # Detect and add SFML

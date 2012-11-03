@@ -1,8 +1,10 @@
 /*
 * Test implementation of the application class
 */
-
+#include <string>
 #include <MGE/Core_include.hpp>
+#include "GameState.hpp"
+#include "SplashState.hpp"
 
 using namespace MGE;
 
