@@ -1,8 +1,8 @@
 /*
 * This is the abstract app class in MGE that is used for building applications
 */
-#ifndef   CORE_APP_HPP
-	#define   CORE_APP_HPP
+#ifndef   IAPP_HPP
+	#define   IAPP_HPP
 
 #include <fstream>
 #include <stddef.h>
@@ -10,6 +10,7 @@
 #include <vector>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <MGE/Core/classes/AssetManager.hpp>
 #include <MGE/Core/classes/StateManager.hpp>
 #include <MGE/Core/Core_types.hpp>
 
@@ -192,7 +193,7 @@ namespace MGE
 		  GraphicRange              mGraphicRange;
 
 			/// AssetManager for managing assets
-			//AssetManager              mAssetManager;
+			AssetManager              mAssetManager;
 			/// PropertyManager for managing IApp properties
 			//PropertyManager           mProperties;
 			/// StatManager for managing game statistics

@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <MGE/Core/interfaces/IApp.hpp>
 #include <MGE/Core/interfaces/IState.hpp>
+#include <MGE/COre/assets/TextureHandler.hpp>
 #include <iostream>
 
 namespace MGE 
@@ -66,6 +67,9 @@ namespace MGE
 
 		//Set running as true
 		mRunning = true;
+
+		//Register basic Assethandler
+		mAssetManager.registerHandler(new(std::nothrow) TextureHandler());
 
 		// Register our App pointer with our StateManager
 		mStateManager.registerApp(this);

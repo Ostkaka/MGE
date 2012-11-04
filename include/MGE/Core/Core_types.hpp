@@ -32,30 +32,6 @@ namespace MGE
     HighRange = 2  ///< Recommend using HighRange graphics (128x128 pixels)
   };
 
-  /// Enumeration of AssetLoadTime
-  enum AssetLoadTime
-  {
-    AssetLoadNow   = 0, ///< Load the asset now
-    AssetLoadLater = 1  ///< Load the asset later
-  };
-
-  /// Enumeration of AssetDropTime
-  enum AssetDropTime
-  {
-    AssetDropUnspecified = 0, ///< Drop/unload time unspecified, use default AtZero
-    AssetDropAtZero      = 1, ///< Drop/unload when count reaches 0
-    AssetDropAtExit      = 2  ///< Drop/unload when program exits (deconstructor)
-  };
-
-  /// Enumeration of all Asset loading techniques
-  enum AssetLoadStyle
-  {
-    AssetLoadFromUnknown = 0, ///< Error condition returned by GetLoadStyle
-    AssetLoadFromFile    = 1, ///< Load the asset from a file
-    AssetLoadFromMemory  = 2, ///< Load the asset from memory
-    AssetLoadFromNetwork = 3  ///< Load the asset from the network
-  };
-
   /// Enumeration of all Logging severity types
   enum SeverityType
   {
@@ -83,9 +59,13 @@ namespace MGE
     // Values from +-100 to +-199 are reserved for File status responses
   };
 
-	//Forward declarations for interfaces
+	// Forward declarations for interfaces
 	class IApp;
 	class IState;
+	class IAssetHandler;
+	
+	// Forward declaration for classes
+	class AssetManager;
 
 	//Forward declarations for classes
 	class StateManager;
