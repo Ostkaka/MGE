@@ -3,9 +3,9 @@
 
 SplashState::SplashState( MGE::IApp& app,float splashDuration ):
 	MGE::IState("Splash",app),
-	mSplashDuration(splashDuration)
+	mSplashDuration(splashDuration),
+	mSpashScreenAsset("./resources/index.jpg")
 {
-
 }
 
 SplashState::~SplashState()
@@ -16,6 +16,7 @@ SplashState::~SplashState()
 void SplashState::init()
 {
 	 IState::init();
+	 mSpalshScreenSprite.setTexture(mSpashScreenAsset.getAsset());
 }
 
 void SplashState::reset()
@@ -45,7 +46,7 @@ void SplashState::updateVariable( float elapsedTime )
 
 void SplashState::draw()
 {
-
+	mApp.mWindow.draw(mSpalshScreenSprite);
 }
 
 void SplashState::handleCleanup()

@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <MGE/Core/interfaces/IState.hpp>
+#include <MGE/Core/assets/TextureAsset.hpp>
 #include <MGE/Core/Core_types.hpp>
 
 #include <string>
@@ -71,6 +72,8 @@ class SplashState : public MGE::IState
   private:
 
     float mSplashDuration;
+		MGE::TextureAsset mSpashScreenAsset;
+		sf::Sprite mSpalshScreenSprite;
 
 }; // class GameState
 

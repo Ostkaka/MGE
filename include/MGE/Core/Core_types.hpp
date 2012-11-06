@@ -63,12 +63,14 @@ namespace MGE
 	class IApp;
 	class IState;
 	class IAssetHandler;
-	
+
 	// Forward declaration for classes
 	class AssetManager;
-
-	//Forward declarations for classes
 	class StateManager;
+
+	// Forward declaration of core assets
+	class TextureAsset;
+	class TextureHandler;
 
 	/// Declare Asset ID typedef which is used for identifying Asset objects
   typedef std::string typeAssetID;
