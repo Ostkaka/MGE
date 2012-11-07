@@ -1,6 +1,6 @@
-/*
-* IAssetHandler Class provides handling and management of IAsset derived classes
-*/
+/**
+ * IAssetHandler Class provides handling and management of IAsset derived classes
+ */
 
 #ifndef   IASSETHANDLER_HPP
 	#define   IASSETHANDLER_HPP
@@ -10,10 +10,8 @@
 
 namespace MGE 
 {
-		
 	 class IAssetHandler
 	 {
-	
 	 public:
 		 /*
 		 * Basic constructor
@@ -25,7 +23,7 @@ namespace MGE
 				*/
 			virtual ~IAssetHandler();
 
-			/*
+			/**
 			* Returns the ID that identifies this asset handler
 			* @return Returns the typeAssetHandlerID for this IAssethandler type
 			*/
