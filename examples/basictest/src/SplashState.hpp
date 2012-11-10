@@ -5,6 +5,7 @@
 #include <MGE/Core/interfaces/IState.hpp>
 #include <MGE/Core/assets/TextureAsset.hpp>
 #include <MGE/Core/Core_types.hpp>
+#include <MGE/Core/utils/CFilter.hpp>
 
 #include <string>
 #include <iostream>
@@ -74,6 +75,7 @@ class SplashState : public MGE::IState
     float mSplashDuration;
 		MGE::TextureAsset mSpashScreenAsset;
 		sf::Sprite mSpalshScreenSprite;
+		MGEUtil::Filter mIntroFilter;
 
 }; // class GameState
 

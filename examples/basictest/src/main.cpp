@@ -7,7 +7,7 @@
 #include <direct.h>
 #define GetCurrentDir _getcwd
 
-int main(){
+int main(int argc, char* argv[] ){
 	
 	int exitCode = MGE::StatusNoError;
 
@@ -23,6 +23,8 @@ int main(){
 	printf("The current working directory is %s", cCurrentPath);
 
 	MGE::IApp * app = new(std::nothrow) TestApp();
+
+	app->processArguments(argc, argv);
 
 	exitCode = app->run();
 

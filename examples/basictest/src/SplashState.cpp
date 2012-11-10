@@ -4,19 +4,22 @@
 SplashState::SplashState( MGE::IApp& app,float splashDuration ):
 	MGE::IState("Splash",app),
 	mSplashDuration(splashDuration),
-	mSpashScreenAsset("./resources/index.jpg")
+	mSpashScreenAsset("./resources/pacmanlogo.gif")
 {
 }
 
 SplashState::~SplashState()
 {
-
 }
 
 void SplashState::init()
 {
 	 IState::init();
-	 mSpalshScreenSprite.setTexture(mSpashScreenAsset.getAsset());
+	 //mSpalshScreenSprite.setTexture(mSpashScreenAsset.getAsset());
+	 mIntroFilter.setFilterTexture(mSpashScreenAsset.getAsset());
+	 mIntroFilter.setAlphaChanger(500/(1000*mSplashDuration));
+	 mIntroFilter.setFilterDelay(1.0/(1000*mSplashDuration));
+	 mIntroFilter.changeFade(true);
 }
 
 void SplashState::reset()
@@ -34,25 +37,23 @@ void SplashState::updateFixed()
 
 }
 
-void SplashState::updateVariable( float elapsedTime )
+void SplashState::updateVariable(float elapsedTime )
 {
-	// Drop our state after 10 seconds have elapsed
+	mIntroFilter.run();
 	if(false == isPaused() && getElapsedTime() > mSplashDuration)
 	{
 		mApp.mStateManager.removeActiveState();
-		std::cout << "Splash ended..." << std::endl;
-
 	}
 }
 
 void SplashState::draw()
 {
-	mApp.mWindow.draw(mSpalshScreenSprite);
+	mApp.mWindow.draw(mIntroFilter.getFilterSprite());
 }
 
 void SplashState::handleCleanup()
 {
-	std::cout << "Cleaning SplashState!" << std::endl;
+	
 }
 
 

@@ -91,19 +91,19 @@ namespace MGE
 		switch(severity)
 		{
 		case SeverityInfo:
-			ostream << "[Logger Information]";
+			ostream << "[Information]";
 			break;
 		case SeverityWarning:
-			ostream << "[Logger Warning]";
+			ostream << "[Warning]";
 			break;
 		case SeverityError:
-			ostream << "[Logger Error]";
+			ostream << "[Error]";
 			break;
 		case SeverityFatal:
-			ostream << "[Logger Fatal]";
+			ostream << "[Fatal]";
 			break;
 		default:
-			ostream << "[Logger Undefined]";
+			ostream << "[Undefined]";
 			break;
 		}
 		ostream << " " << sourceFile << ":" << sourceLine << " ";

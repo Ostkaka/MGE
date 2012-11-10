@@ -52,7 +52,7 @@ namespace MGE
       StringLogger(const StringLogger&);            
 
       StringLogger& operator=(const StringLogger&);  
-  }; // class StringLogger
-} // namespace GQE
+  }; 
+} 
 
-#endif // CORE_STRING_LOGGER_HPP_INCLUDED
+#endif 

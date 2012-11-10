@@ -71,6 +71,8 @@ namespace MGE
 	// Forward declaration of core assets
 	class TextureAsset;
 	class TextureHandler;
+	class MusicHandler;
+	class MusicAsset;
 
 	// Loggers 
 	class StringLogger;

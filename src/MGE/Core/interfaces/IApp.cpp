@@ -5,6 +5,7 @@
 #include <MGE/Core/interfaces/IApp.hpp>
 #include <MGE/Core/interfaces/IState.hpp>
 #include <MGE/Core/assets/TextureHandler.hpp>
+#include <MGE/Core/assets/MusicHandler.hpp>
 #include <MGE/Core/loggers/Log.hpp>
 #include <iostream>
 
@@ -75,16 +76,15 @@ namespace MGE
 
 	int IApp::run()
 	{
-		SLOG(App_Run,SeverityInfo) << std::endl;
-
-		std::cout << "Applications is running" << std::endl;
 		//Logger stuff
+		SLOG(App_Run,SeverityInfo) << std::endl;
 
 		//Set running as true
 		mRunning = true;
 
 		//Register basic Assethandler
 		mAssetManager.registerHandler(new(std::nothrow) TextureHandler());
+		mAssetManager.registerHandler(new(std::nothrow) MusicHandler());
 
 		// Register our App pointer with our StateManager
 		mStateManager.registerApp(this);

@@ -28,4 +28,6 @@ protected:
 
 	virtual void handleCustomCleanup();
 
+	MGE::FileLogger * mLooger;
+
 };

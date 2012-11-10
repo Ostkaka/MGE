@@ -16,6 +16,7 @@ add_definitions(-DMGE_EXPORTS)
 
 # add the modules subdirectories
 add_subdirectory(Core)
+add_subdirectory(Tile)
 
 # install Config header include file
 install(FILES ${MGE_INCLUDE_DIR}/MGE_Config.hpp

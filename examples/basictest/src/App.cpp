@@ -7,14 +7,12 @@ using namespace MGE;
 
 TestApp::TestApp( const std::string title /*= "TestApp"*/ ): IApp(title)
 {
-	ILogger* l = MGE::ILogger::getLogger();
-	l = new StringLogger(true,StatusError);
-
+	mLooger = new FileLogger("./logger.log",true);
 }
 
 TestApp::~TestApp()
 {
-	
+		std::cout << mLooger->getStream() << std::endl;
 }
 
 void TestApp::initCustomAssetHandlers()
@@ -24,9 +22,8 @@ void TestApp::initCustomAssetHandlers()
 
 void TestApp::initCustomGameStates()
 {
-	mStateManager.addActiveState(new(std::nothrow) GameState(*this));
+	mStateManager.addInactiveState(new(std::nothrow) GameState(*this));
 	mStateManager.addActiveState(new(std::nothrow) SplashState(*this,5));
-	std::cout << static_cast<StringLogger>(MGE::ILogger::getLogger()).getString() << std::endl;
 }
 
 void TestApp::handleCustomCleanup()
