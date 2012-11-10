@@ -9,6 +9,7 @@
 #include <typeinfo>
 #include <MGE/Core/interfaces/TAssetHandler.hpp>
 #include <MGE/Core/Core_types.hpp>
+
 #include <iostream>
 
 namespace MGE 
@@ -57,7 +58,8 @@ namespace MGE
 				// Make sure we aren't returning NULL at this point
 				if(handler == NULL)
 				{
-					std::cout << "Result for getting handler for: (" << typeid(T).name() << ") failed, pointer is NULL" << std::endl;
+					FLOG(StatusAppMissingAsset) << "AssetManager::getHandler("
+						<< typeid(T).name() << ") not found!" << std::endl;
 				}
 
 				// Return the TAssetHandler addres or Null if something went wrong

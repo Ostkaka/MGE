@@ -33,7 +33,7 @@ namespace MGE
 		  /**
        * init is responsible for initializing this State.  HandleCleanup will
        * be called if mCleanup is true so Derived classes should always call
-       * IState::DoInit() first before initializing their assets.
+       * IState::doInit() first before initializing their assets.
        */
       virtual void init();
 

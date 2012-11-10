@@ -72,6 +72,12 @@ namespace MGE
 	class TextureAsset;
 	class TextureHandler;
 
+	// Loggers 
+	class StringLogger;
+	class ScopeLogger;
+	class FileLogger;
+	class FatalLogger;
+
 	/// Declare Asset ID typedef which is used for identifying Asset objects
   typedef std::string typeAssetID;
 

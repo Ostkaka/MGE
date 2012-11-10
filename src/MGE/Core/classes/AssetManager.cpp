@@ -3,16 +3,20 @@
 **/
 
 #include <MGE/Core/classes/AssetManager.hpp>
+#include <MGE/Core/loggers/Log.hpp>
 #include <iostream>
 
 namespace MGE
 {
 	AssetManager::AssetManager()
 	{
+		ILOGM("AssetManager::ctor()");
 	}
 
 	AssetManager::~AssetManager()
 	{
+		ILOGM("AssetManager::dtor()");
+
 		// Iterator to use while deleting all assets
 		assetHandlerMap::iterator iter;
 
@@ -51,7 +55,8 @@ namespace MGE
 		// Make sure we aren't returning NULL at this point
 		if(handler == NULL)
 		{
-			std::cout << "Failed to get: " << assetHandlerID << std::endl;
+			FLOG(StatusAppMissingAsset) << "AssetManager::GetHandler("
+				<< assetHandlerID << ") not found!" << std::endl;
 		}
 
 		// Return the address to some IAssetHandler class or the DummyHandler instead
@@ -80,14 +85,15 @@ namespace MGE
 			else
 			{
 				// Log an error for trying to register two handlers with the same Handler ID.
-				std::cerr << "AssetManager:RegisterHandler(" << assetHandler->getID()
+				ELOG() << "AssetManager:RegisterHandler(" << assetHandler->getID()
 					<< ") Handler already registered for this ID!" << std::endl;
 			}
 		}
 		else
 		{
-			// Print an error for trying to register a NULL handler
-			std::cerr << "AssetManager:RegisterHandler() Handler pointer provided was NULL!"
+			// Log an error for trying to register a NULL handler
+			FLOG(StatusError)
+				<< "AssetManager:RegisterHandler() Handler pointer provided was NULL!"
 				<< std::endl;
 		}
 	}

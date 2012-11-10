@@ -1,9 +1,7 @@
 /**
 * ILogger is the interface that all the logger classes in the framework is derived from
 */
-
 #include <MGE\Core\interfaces\ILogger.hpp>
-
 #include <ctime>
 #include <ostream>
 #include <MGE/Core/interfaces/ILogger.hpp>
@@ -12,7 +10,7 @@
 namespace MGE
 {
 	ILogger* ILogger::gInstance = NULL;
-	std::onullstream ILogger::gNUllstream;
+	std::onullstream ILogger::gNullStream;
 
 
 	ILogger::ILogger( bool derfaultLogger/*=false*/,int exitCode /*= StatusType::StatusError*/ ):

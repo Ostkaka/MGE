@@ -9,6 +9,7 @@
 #include <typeinfo>
 #include <MGE/Core/interfaces/IAssetHandler.hpp>
 #include <MGE/Core/Core_types.hpp>
+#include <MGE/COre/loggers/Log.hpp>
 
 namespace MGE
 {
@@ -25,12 +26,15 @@ namespace MGE
 		TAssetHandler():
 				IAssetHandler(typeid(T).name())
 		{
+			ILOG() << "TAssetHandler::ctor(" << getID() << ")" << std::endl;
 		}
 
 		/**
 		* Basic deconstructor
 		*/
-		virtual ~TAssetHandler(){
+		virtual ~TAssetHandler()
+		{
+			ILOG() << "TAssetHandler::dtor(" << getID() << ")" << std::endl;
 
 			//Loop through all assets and try to remove them
 			AssetMap::iterator iter = mAssetMap.begin();
@@ -57,19 +61,19 @@ namespace MGE
     * ID was provided to find. This enables system stability since all
     * Assets will have valid addresses
     */
-    T* getReference()
+    T* getPointer()
     {
       // Return the Dummy Asset reference
       return &mDummyAsset;
     }
 
 		/**
-		* GetReference will retrieve the asset registered under assetID
+		* getPointer will retrieve the asset registered under assetID
 		* or load the asset if it has not been created.
 		* @param[in] theAssetID to lookup for the reference
 		* @return the asset found or a newly acquired asset if not found
 		*/
-		T* getReference(const typeAssetID assetID)
+		T* getPointer(const typeAssetID assetID)
 		{
 
 			//TAsset pointer that will be created
@@ -146,7 +150,10 @@ namespace MGE
       }
       else
       {
-        // Log a warning for trying to determine loaded value of an unknown asset ID
+				// Log a warning for trying to determine loaded value of an unknown asset ID
+				WLOG() << "TAssetHandler(" << getID() << "):IsLoaded("
+					<< assetID << ") Asset ID provided not found!"
+					<< std::endl;
       }
 
       // Return the result found or the default result assigned above

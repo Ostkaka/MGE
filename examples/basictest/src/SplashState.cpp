@@ -41,6 +41,7 @@ void SplashState::updateVariable( float elapsedTime )
 	{
 		mApp.mStateManager.removeActiveState();
 		std::cout << "Splash ended..." << std::endl;
+
 	}
 }
 

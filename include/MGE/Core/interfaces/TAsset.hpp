@@ -25,7 +25,7 @@ namespace MGE
 
 		TAsset(const typeAssetID assetID): 
 			mAssetHandler(IApp::getApp()->mAssetManager.getHandler<T>()),
-			mAsset(mAssetHandler.getReference(assetID)),
+			mAsset(mAssetHandler.getPointer(assetID)),
 			mAssetID(assetID)
 		{
 			//Do nothing here
@@ -36,7 +36,7 @@ namespace MGE
 		*/
 		TAsset() :
 		mAssetHandler(IApp::getApp()->mAssetManager.getHandler<T>()),
-		mAsset(mAssetHandler.getReference())
+		mAsset(mAssetHandler.getPointer())
 		{
 		}
 
@@ -62,7 +62,7 @@ namespace MGE
 			mAssetID = assetID;
 
 			// Try to obtain a reference to the new Asset from Handler
-			mAsset = mAssetHandler.getReference(mAssetID);
+			mAsset = mAssetHandler.getPointer(mAssetID);
 		}
 
 		/**
@@ -81,7 +81,7 @@ namespace MGE
 				if(succLoad)
 				{
 					// Get reference to the asset immediately
-					mAsset = mAssetHandler.getReference(mAssetID);
+					mAsset = mAssetHandler.getPointer(mAssetID);
 				}
 			}
 

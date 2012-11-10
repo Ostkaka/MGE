@@ -5,6 +5,7 @@
 #include <MGE/Core_include.hpp>
 #include "GameState.hpp"
 #include "SplashState.hpp"
+#include <MGE\COre\loggers\FileLogger.hpp>
 
 using namespace MGE;
 
@@ -26,5 +27,5 @@ protected:
 	virtual void initCustomGameStates();
 
 	virtual void handleCustomCleanup();
-	
+
 };

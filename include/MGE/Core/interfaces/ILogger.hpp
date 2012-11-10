@@ -14,7 +14,7 @@ namespace MGE
 	{
 		public:
 			/// Default null stream if logger is not active
-			static std::onullstream gNUllstream;
+			static std::onullstream gNullStream;
 			
 			/**
 			 *  Basic destructor
@@ -39,11 +39,19 @@ namespace MGE
 			virtual void setActive(bool active);
 
 			/**
+       * GetStream is responsible for returning the ostream necessary to log the
+       * custom message that will follow without a prefix.
+       * @return the ostream to use for logging the message
+       */
+      virtual std::ostream& getStream(void) = 0;
+
+			/**
 			 * Returns the stream nessecary to log custom message
 			 */
 				virtual std::ostream& getStream(SeverityType severity, 
 				const std::string& sourceFile,
-				int sourceLine, int exitCode = StatusError) = 0;
+				int sourceLine, 
+				int exitCode = StatusError) = 0;
 
 			/**
 			 * Logs a message given data
@@ -55,7 +63,8 @@ namespace MGE
 			 */
 			virtual void logMessage(SeverityType severity, 
 				const std::string& sourceFile,
-				int sourceLine, int exitCode = StatusError) = 0;
+				int sourceLine, 
+				const std::string& message) = 0;
 
 	protected:
 

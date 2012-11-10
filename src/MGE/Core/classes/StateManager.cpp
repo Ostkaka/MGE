@@ -4,7 +4,7 @@
 
 #include <assert.h>
 #include <stddef.h>
-//#include <GQE/Core/loggers/Log_macros.hpp>
+#include <MGE/Core/loggers/Log.hpp>
 #include <MGE/Core/classes/StateManager.hpp>
 #include <MGE/Core/interfaces/IApp.hpp>
 #include <MGE/Core/interfaces/IState.hpp>
@@ -14,12 +14,12 @@ namespace MGE
 	StateManager::StateManager() :
 	mApp(NULL)
 	{
-		//ILOGM("StateManager::ctor()");
+		ILOGM("StateManager::ctor()");
 	}
 
 	StateManager::~StateManager()
 	{
-		//ILOGM("StateManager::dtor()");
+		ILOGM("StateManager::dtor()");
 		// Drop all active states
 		while(!mStack.empty())
 		{
@@ -95,7 +95,7 @@ namespace MGE
 		assert(NULL != state && "StateManager::addActiveState() received a bad pointer");
 
 		// Log the adding of each state
-		//ILOG() << "StateManager::AddActiveState(" << theState->GetID() << ")" << std::endl;
+		ILOG() << "StateManager::AddActiveState(" << state->getID() << ")" << std::endl;
 
 		// Is there a state currently running? then Pause it
 		if(!mStack.empty())
@@ -118,7 +118,7 @@ namespace MGE
 		assert(NULL != state && "StateManager::addInactiveState() received bad pointer");
 
 		// Log the adding of each state
-		//ILOG() << "StateManager::AddInactiveState(" << theState->GetID() << ")" << std::endl;
+		ILOG() << "StateManager::AddInactiveState(" << state->getID() << ")" << std::endl;
 
 		// Add the inactive state to the bottom of the stack
 		mStack.insert(mStack.begin(), state);
@@ -138,7 +138,7 @@ namespace MGE
 			IState* state = mStack.back();
 
 			// Log the inactivating an active state
-			//ILOG() << "StateManager::InactivateActiveState(" << state->GetID() << ")" << std::endl;
+			ILOG() << "StateManager::InactivateActiveState(" << state->getID() << ")" << std::endl;
 
 			// Pause the currently active state
 			state->pause();
@@ -196,7 +196,7 @@ namespace MGE
 			IState* state = mStack.back();
 
 			// Log the dropping of an active state
-			//ILOG() << "StateManager::DropActiveState(" << anState->GetID() << ")" << std::endl;
+			ILOG() << "StateManager::DropActiveState(" << state->getID() << ")" << std::endl;
 
 			// Pause the currently active state
 			state->pause();
@@ -259,7 +259,7 @@ namespace MGE
 			IState* anState = mStack.back();
 
 			// Log the resetting of an active state
-			//ILOG() << "StateManager::ResetActiveState(" << anState->GetID() << ")" << std::endl;
+			ILOG() << "StateManager::ResetActiveState(" << anState->getID() << ")" << std::endl;
 
 			// Pause the currently active state
 			anState->pause();
@@ -293,7 +293,7 @@ namespace MGE
 			IState* anState = mStack.back();
 
 			// Log the removing of an active state
-			//ILOG() << "StateManager::RemoveActiveState(" << anState->GetID() << ")" << std::endl;
+			ILOG() << "StateManager::RemoveActiveState(" << anState->getID() << ")" << std::endl;
 
 			// Pause the currently active state
 			anState->pause();
@@ -360,7 +360,7 @@ namespace MGE
 				IState* anState = *it;
 
 				// Log the setting of a previously active state as the current active state
-				//ILOG() << "StateManager::SetActiveState(" << anState->GetID() << ")" << std::endl;
+				ILOG() << "StateManager::SetActiveState(" << anState->getID() << ")" << std::endl;
 
 				// Erase it from the list of previously active states
 				mStack.erase(it);

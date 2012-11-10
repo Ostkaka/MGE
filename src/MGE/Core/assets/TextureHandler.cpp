@@ -3,6 +3,7 @@
 */
 
 #include <MGE/Core/assets/TextureHandler.hpp>
+#include <MGE/Core/loggers/Log.hpp>
 #include <iostream>
 
 namespace MGE
@@ -10,12 +11,12 @@ namespace MGE
 	TextureHandler::TextureHandler():
 		TAssetHandler<sf::Texture>()
 	{
-
+		ILOG() << "TextureHandler::ctor()" << std::endl;
 	}
 
 	TextureHandler::~TextureHandler()
 	{
-		//Do nothing
+		ILOG() << "TextureHandler::dtor()" << std::endl;
 	}
 
 	bool TextureHandler::loadFromFile(const typeAssetID assetID, sf::Texture& asset)
@@ -34,7 +35,7 @@ namespace MGE
 		}
 		else
 		{
-			std::cerr << "ImageHandler::LoadFromFile(" << assetID
+			ELOG() << "TextureHandler::LoadFromFile(" << assetID
 				<< ") No filename provided!" << std::endl;
 		}
 
