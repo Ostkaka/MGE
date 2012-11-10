@@ -1,4 +1,4 @@
-#include "CArea.h"
+#include "MGE\Tile\CArea.h"
 
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
@@ -10,7 +10,7 @@ CArea::CArea() {
 
 bool CArea::onLoad(const std::string & file) {
     mapList.clear();
-	areaTileset = new sf::Texture();
+		areaTileset = new sf::Texture();
 
     FILE* fileHandle = fopen(file.c_str(), "r");
 
@@ -22,7 +22,7 @@ bool CArea::onLoad(const std::string & file) {
 
     fscanf(fileHandle, "%s\n", tilesetFile);
 
-	if((areaTileset = ant::AssetManager::mAssetManager.getOrLoadTexture(std::string(std::string("/") + std::string(tilesetFile))))==NULL) {
+		if((areaTileset = ant::AssetManager::mAssetManager.getOrLoadTexture(std::string(std::string("/") + std::string(tilesetFile))))==NULL) {
         fclose(fileHandle);
         return false;
     }

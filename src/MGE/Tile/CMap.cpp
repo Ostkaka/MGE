@@ -1,4 +1,4 @@
-#include "CMap.h"
+#include "MGE\Tile\CMap.h"
 
 CMap::CMap() {
     

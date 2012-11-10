@@ -5,11 +5,10 @@
 #include <string>
 #include <iostream>
 #include <cmath>
-#include "CArea.h"
-#include "CAnimation.h"
-#include "CCamera.h"
-#include "CFPS.h"
-#include "Define.h"
+#include <MGE/Tile/CArea.h>
+#include <MGE/Tile/CAnimation.h>
+#include <MGE/Tile/CCamera.h>
+#include <MGE/Tile/Define.h>
 #include <SFML/Graphics.hpp>
 
 #define ENTITY_JUMP_FRAME 7
@@ -33,75 +32,75 @@ enum {
     ENTITY_FLAG_MAPONLY  = 0x00000004
 };
 
-class CEntity{
-    public:
-        static std::vector<CEntity*>    EntityList;
+class CEntity
+{
+	public:
+		static std::vector<CEntity*>    EntityList;
 
-    protected:
-		CAnimation anim_Control;
+	protected:
+		CAnimation		anim_Control;
 
 		//Graphics
-		sf::Sprite sprite;
-	    sf::Texture * texture;
+		sf::Sprite		sprite;
+	  sf::Texture * texture;
 
-    public:
-		sf::Vector2f pos;
-		sf::Vector2f size;
+  public:
+		sf::Vector2f	pos;
+		sf::Vector2f  size;
 
-        bool        moveLeft;
-        bool        moveRight;
+		bool					moveLeft;
+		bool					moveRight;
 
-    //Status flags
-    public:
-        int        type;
-        bool       dead;
-        int        flags;
+   //Status flags
+	public:
+		int						type;
+		bool					dead;
+		int						flags;
 
 		//Speed variables
-		sf::Vector2f speed;
-		sf::Vector2f accel;
-		sf::Vector2f maxSpeed;
+		sf::Vector2f	speed;
+		sf::Vector2f	accel;
+		sf::Vector2f	maxSpeed;
 
     //Frame animation variables
-    protected:
-        int             CurrentFrameCol;
-        int             CurrentFrameRow;
+  protected:
+		int						CurrentFrameCol;
+		int						CurrentFrameRow;
 
-    /*
-    *   Test version of bouding box instead of collision box
-    */
-    protected:
+		/*
+		*	Test version of bounding box instead of collision box
+		*/
+  protected:
 		//Bound
 		sf::IntRect bound;
 
-    public:
-        CEntity();
+  public:
+		CEntity();
+		virtual ~CEntity();
 
-        virtual ~CEntity();
+  public:
+		virtual bool onLoad(const std::string & file, int width, int height, int maxFrames);
 
-    public:
-        virtual bool onLoad(const std::string & file, int width, int height, int maxFrames);
-
-        virtual void onLoop();
+		virtual void onLoop();
 
 		virtual void onRender(sf::RenderWindow & window);
 
-        virtual void onCleanup();
+		virtual void onCleanup();
 
-        virtual void onAnimate();
+		virtual void onAnimate();
 
-        virtual bool onCollision(CEntity* entity);
+		virtual bool onCollision(CEntity* entity);
 
-		void    onMove(sf::Vector2f move);
+		void onMove(sf::Vector2f move);
 
-        void    stopMove();
+		void stopMove();
 
-        bool    collides(sf::IntRect rect);
+		bool collides(sf::IntRect rect);
 
-        //Check if new position is valid
-        bool     posValid(sf::Vector2f newPos);
-        bool     posValidTile(CTile* Tile);
-        bool     posValidEntity(CEntity* Entity,const sf::IntRect & newBound);
+		//Check if new position is valid
+		bool posValid(sf::Vector2f newPos);
+		bool posValidTile(CTile* Tile);
+		bool posValidEntity(CEntity* Entity,const sf::IntRect & newBound);
 
 		//Returns the bound of the sprite for collision
 		sf::IntRect getBound();
@@ -110,10 +109,10 @@ class CEntity{
 		void CEntity::printStats();
 
 	protected:
-        bool    canJump;
+    bool    canJump;
 
-    public:
-        bool     jump();
+  public:
+    bool    jump();
 };
 
 class CEntityCol {

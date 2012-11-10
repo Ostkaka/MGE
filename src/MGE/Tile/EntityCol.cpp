@@ -1,4 +1,4 @@
-#include "CEntity.h"
+#include "MGE\Tile\CEntity.h"
 
 std::vector<CEntityCol> CEntityCol::EntityColList;
 

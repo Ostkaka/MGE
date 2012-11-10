@@ -1,6 +1,4 @@
-#include "FilePathContainer.h"
-
-using namespace antIO;
+#include "MGE/Core/utils/FilePathContainer.h"
 
 FilePathContainer::FilePathContainer(){
 	//Add current directory

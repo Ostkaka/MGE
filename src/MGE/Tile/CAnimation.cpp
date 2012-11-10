@@ -1,4 +1,4 @@
-#include "CAnimation.h"
+#include "MGE\Tile\CAnimation.h"
 
 CAnimation::CAnimation() {
     currentFrame    = 0;

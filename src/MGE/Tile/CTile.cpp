@@ -1,4 +1,4 @@
-#include "CTile.h"
+#include "MGE\Tile\CTile.h"
 
 CTile::CTile() {
     TileID = 0;

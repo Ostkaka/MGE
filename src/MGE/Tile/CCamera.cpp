@@ -1,4 +1,4 @@
-#include "CCamera.h"
+#include "MGE\Tile\CCamera.h"
 
 CCamera CCamera::CameraControl;
 

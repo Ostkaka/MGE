@@ -1,5 +1,4 @@
-#include "CEntity.h"
-#include "CApp.h"
+#include "MGE\Tile\CEntity.h"
 
 std::vector<CEntity*> CEntity::EntityList;
 
@@ -32,7 +31,7 @@ CEntity::~CEntity() {
 
 bool CEntity::onLoad(const std::string & file, int width, int height, int maxFrames) {
 	texture = new sf::Texture();
-	if((texture = ant::AssetManager::mAssetManager.getOrLoadTexture(file)) == NULL) {
+	if((texture = MGE::AssetManager::mAssetManager.getOrLoadTexture(file)) == NULL) {
 		delete texture;
         fprintf(stderr,"could not load file %s\n",file.c_str());
         return false;
