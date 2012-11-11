@@ -28,6 +28,7 @@ protected:
 
 	virtual void handleCustomCleanup();
 
-	MGE::FileLogger * mLooger;
+	MGE::FileLogger *		mLooger;
+	MGE::TextureAsset		mIcon;
 
 };

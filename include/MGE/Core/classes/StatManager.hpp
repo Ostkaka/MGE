@@ -10,6 +10,8 @@
 #include <SFML/System.hpp>
 #include <MGE/Core/Core_types.hpp>
 
+//#define PRINT_COUT_ONLY
+
 namespace MGE
 {
 	class StatManager 

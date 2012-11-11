@@ -52,6 +52,7 @@ void GameState::init()
 	
   // Make sure our update loop is only called 30 times per second
   mApp.setUpdateRate(60);
+	mApp.setMaxUpdates(1);
 	mApp.mStatManager.setShow(true);
 }
 
@@ -145,9 +146,11 @@ void GameState::handleEvents(sf::Event tEvent)
 	}
 	if(tEvent.type == sf::Event::KeyPressed && (tEvent.key.code == sf::Keyboard::Left)){
 		player.moveLeft = true;
+		player.moveRight = false;
 	}
 	if(tEvent.type == sf::Event::KeyPressed && (tEvent.key.code == sf::Keyboard::Right)){
 		player.moveRight = true;	
+		player.moveLeft = false;	
 	}
 	if(tEvent.type == sf::Event::KeyReleased && (tEvent.key.code == sf::Keyboard::Left)){
 		player.moveLeft = false;

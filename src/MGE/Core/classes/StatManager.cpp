@@ -109,7 +109,6 @@ namespace MGE
 		if(mUpdateClock.getElapsedTime().asSeconds() > 1.0f)
 		{
 			std::ostringstream updates;
-
 			updates.precision(2);
 			updates.width(7);
 			updates << "UPS: " << std::fixed << mUpdates;
@@ -119,7 +118,6 @@ namespace MGE
 			mUpdates = 0;
 			mUpdateClock.restart();
 		}
-
 	}
 
 	void StatManager::draw()
@@ -130,12 +128,12 @@ namespace MGE
 		// Increment frame counter
 		mFrames++;
 		if(mFrameClock.getElapsedTime().asSeconds() > 1.0f)
-		{
+		{			
 			std::ostringstream frames;
-
+			
 			frames.precision(2);
 			frames.width(7);
-			frames << "FPS: " << std::fixed << mUpdates;
+			frames << "FPS: " << std::fixed << mFrames;
 			mFPS->setString(frames.str());
 
 			//Reset updates
@@ -145,11 +143,16 @@ namespace MGE
 
 		if(mShow)
 		{
+			#ifndef PRINT_COUT_ONLY
 			// Draw FPS
 			mApp->mWindow.draw(*mUPS);
-
 			// Draw UPS
 			mApp->mWindow.draw(*mFPS);
+			#else
+			std::cout << mFPS->getString().toAnsiString() 
+				<< mUPS->getString().toAnsiString() 
+				<< std::endl;
+			#endif
 		}
 	}
 }

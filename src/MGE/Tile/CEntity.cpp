@@ -21,7 +21,7 @@ CEntity::CEntity(){
     flags = ENTITY_FLAG_GRAVITY;
     
 		maxSpeed.x = 5;
-    maxSpeed.y = 5;
+    maxSpeed.y = 10;
 
     CurrentFrameCol = 0;
     CurrentFrameRow = 0;
@@ -49,24 +49,24 @@ bool CEntity::onLoad(const std::string & file, int width, int height, int maxFra
 	bound.width=size.x;
 	bound.height=size.y;
 
-    return true;
+  return true;
 }
 
 void CEntity::onLoop( float dt )
 {
     //We're not Moving
     if(moveLeft == false && moveRight == false) {
-        stopMove();
+        stopMove( dt );
     }
 
     if(moveLeft) {
-        accel.x = -0.5;
+        accel.x = -0.5 * dt;
     }else if(moveRight) {
-        accel.x = 0.5;
+        accel.x = 0.5 * dt;
     }
 
     if(flags & ENTITY_FLAG_GRAVITY) {
-        accel.y = 9.82 * 10 * dt;
+        accel.y = 9.82;
     }
 
     speed.x += accel.x * dt;
@@ -175,13 +175,13 @@ void CEntity::onMove(sf::Vector2f move) {
     }
 }
 
-void CEntity::stopMove() {
+void CEntity::stopMove(float dt) {
     if(speed.x > 0) {
-        accel.x = -1;
+        accel.x = -1 * dt;
     }
 
     if(speed.x < 0) {
-        accel.x =  1;
+        accel.x =  1 * dt;
     }
 
     if(speed.x < 2.0f && speed.x > -2.0f) {

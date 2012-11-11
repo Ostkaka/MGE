@@ -1,5 +1,5 @@
 /*
-* 
+* This is the IApp file governing all underlying game mechanics in an application
 */
 #include <assert.h>
 #include <MGE/Core/interfaces/IApp.hpp>
