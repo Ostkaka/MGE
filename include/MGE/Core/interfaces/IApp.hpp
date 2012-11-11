@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 #include <MGE/Core/classes/AssetManager.hpp>
 #include <MGE/Core/classes/StateManager.hpp>
+#include <MGE/Core/classes/StatManager.hpp>
 #include <MGE/Core/Core_types.hpp>
 
 namespace MGE
@@ -178,7 +179,9 @@ namespace MGE
 			/// Default application wide settings file string
 			static const char* APP_SETTINGS;
 
-			///Variables
+			//////////////////////////////////////////////////////////////////////////
+			// Vairables
+			//////////////////////////////////////////////////////////////////////////
 		  /// Title to use for Window
 		  std::string               mTitle;
 		  /// Video Mode to use (width, height, bpp)
@@ -194,10 +197,8 @@ namespace MGE
 
 			/// AssetManager for managing assets
 			AssetManager              mAssetManager;
-			/// PropertyManager for managing IApp properties
-			//PropertyManager           mProperties;
-			/// StatManager for managing game statistics
-			//StatManager               mStatManager;
+			// StatManager for managing game statistics
+			StatManager               mStatManager;
 			/// StateManager for managing states
 			StateManager              mStateManager;
 

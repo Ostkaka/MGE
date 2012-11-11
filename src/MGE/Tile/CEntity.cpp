@@ -66,7 +66,7 @@ void CEntity::onLoop( float dt )
     }
 
     if(flags & ENTITY_FLAG_GRAVITY) {
-        accel.y = 9,82 * dt;
+        accel.y = 9.82 * 10 * dt;
     }
 
     speed.x += accel.x * dt;

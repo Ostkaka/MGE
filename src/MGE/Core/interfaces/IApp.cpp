@@ -26,8 +26,8 @@ namespace MGE
 		mContextSettings(),
 		mWindowStyle(sf::Style::Close | sf::Style::Resize),
 		mGraphicRange(LowRange),
-		//mAssetManager(),
-		//mStatManager(),
+		mAssetManager(),
+		mStatManager(),
 		mStateManager(),
 		mExitCode(0),
 		mRunning(false),
@@ -89,6 +89,9 @@ namespace MGE
 		// Register our App pointer with our StateManager
 		mStateManager.registerApp(this);
 
+		// Register Statmanager
+		mStatManager.registerApp(this);
+
 		//Register custom asset classes
 		initCustomAssetHandlers();
 
@@ -100,6 +103,9 @@ namespace MGE
 
 		//Inits the custom game states
 		initCustomGameStates();
+
+		// Init statmanager
+		mStatManager.init();
 
 		// Do gameLoop of the running flag is active
 		gameLoop();
@@ -282,7 +288,7 @@ namespace MGE
 				anState.updateFixed();
 
 				// Let the StatManager perfom its updates
-				//mStatManager.updateFixed();
+				mStatManager.updateFixed();
 
 				// Compute the next appropriate UpdateFixed time
 				anUpdateNext += mUpdateRate;
@@ -296,7 +302,7 @@ namespace MGE
 			anState.draw();
 
 			// Let the StatManager perform its drawing
-			//mStatManager.Draw();
+			mStatManager.draw();
 
 			// Display Render window to the screen
 			mWindow.display();
