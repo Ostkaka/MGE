@@ -3,8 +3,8 @@
 CCamera CCamera::CameraControl;
 
 CCamera::CCamera() {
-	pos.x = pos.y = 0;
-	targetCenter = NULL;
+		pos.x = pos.y = 0;
+		targetCenter = NULL;
 
     targetMode = TARGET_MODE_NORMAL;
 }
@@ -25,8 +25,8 @@ void CCamera::setPos(const sf::Vector2f & pos) {
 	this->pos = pos;
 }
 
-void CCamera::setTarget(sf::Vector2f * Center) {
-    this->targetCenter = Center;
+void CCamera::setTarget(sf::Vector2f * center) {
+    this->targetCenter = center;
 }
 
 

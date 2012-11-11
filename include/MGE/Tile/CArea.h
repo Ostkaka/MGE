@@ -3,25 +3,29 @@
 
 #include <SFML/Graphics.hpp>
 #include "MGE/Tile/CMap.h"
+#include <MGE/Core/Core_types.hpp>
+#include <MGE/Core/assets/TextureAsset.hpp>
 
 class CArea {
-    public:
-        static CArea areaControl;
+		public:
         std::vector<CMap> mapList;
 
     public:
         CArea();
+				~CArea();
         bool    onLoad(const std::string & File);
 				void    onRender(sf::RenderWindow & window, const sf::Vector2f & cameraPos);
         void    onCleanup();
 
     public:
-        CMap*    getMap(int X, int Y);
-        CTile*   getTile(int X, int Y);
+			CMap * getMap(int X, int Y);
+			CTile *	getTile(int X, int Y);
+			static CArea *			areaControl;
 
 		private:
-			int						areaSize;
-			sf::Texture * areaTileset;
+			int									areaSize;
+			MGE::TextureAsset		mTilesetTexture;
+
 };
 
 #endif

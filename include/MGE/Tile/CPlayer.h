@@ -10,7 +10,7 @@ class CPlayer : public CEntity {
 
         bool onLoad(const std::string & file, int width, int height, int maxFrames);
 
-        void onLoop();
+        void onLoop(float dt);
 
         void onRender(sf::RenderWindow & window);
 

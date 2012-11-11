@@ -22,8 +22,8 @@ void TestApp::initCustomAssetHandlers()
 
 void TestApp::initCustomGameStates()
 {
-	mStateManager.addInactiveState(new(std::nothrow) GameState(*this));
-	mStateManager.addActiveState(new(std::nothrow) SplashState(*this,5));
+	mStateManager.addActiveState(new(std::nothrow) GameState(*this));
+	//mStateManager.addActiveState(new(std::nothrow) SplashState(*this,5));
 }
 
 void TestApp::handleCustomCleanup()

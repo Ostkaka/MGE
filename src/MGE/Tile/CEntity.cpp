@@ -1,13 +1,15 @@
-#include "MGE\Tile\CEntity.h"
+#include <MGE\Tile\CEntity.h>
+#include <MGE/Core/loggers/Log.hpp>
 
 std::vector<CEntity*> CEntity::EntityList;
 
-CEntity::CEntity() {
-    texture=NULL;
-
-	pos.x=0;pos.y=0;
-	speed.x=0;speed.y=0;
-	accel.x=0;accel.y=0;
+CEntity::CEntity(){
+		
+		ILOG() << "IEntity::ctor()" << std::endl;
+    
+		pos.x=0;pos.y=0;
+		speed.x=0;speed.y=0;
+		accel.x=0;accel.y=0;
 
     moveLeft  = false;
     moveRight = false;
@@ -18,32 +20,28 @@ CEntity::CEntity() {
     dead = false;
     flags = ENTITY_FLAG_GRAVITY;
     
-	maxSpeed.x = 5;
+		maxSpeed.x = 5;
     maxSpeed.y = 5;
 
     CurrentFrameCol = 0;
     CurrentFrameRow = 0;
-
 }
 
 CEntity::~CEntity() {
+		ILOG() << "IEntity::dtor()" << std::endl;
 }
 
 bool CEntity::onLoad(const std::string & file, int width, int height, int maxFrames) {
-	texture = new sf::Texture();
-	if((texture = MGE::AssetManager::mAssetManager.getOrLoadTexture(file)) == NULL) {
-		delete texture;
-        fprintf(stderr,"could not load file %s\n",file.c_str());
-        return false;
-    }
+	//Load texture for entity
+	mEntityTexture.setID(file);
 
-    this->size.x = width;
-    this->size.y = height;
+	this->size.x = width;
+  this->size.y = height;
 
 	anim_Control.maxFrames = maxFrames;
 
-	sprite.setTexture(*texture);
-	sprite.setTextureRect(sf::IntRect(0,0,size.x,size.y));
+	mEntitySprite.setTexture(mEntityTexture.getAsset());
+	mEntitySprite.setTextureRect(sf::IntRect(0,0,size.x,size.y));
 	
 	//Init bound
 	bound.left=pos.x;
@@ -54,7 +52,8 @@ bool CEntity::onLoad(const std::string & file, int width, int height, int maxFra
     return true;
 }
 
-void CEntity::onLoop() {
+void CEntity::onLoop( float dt )
+{
     //We're not Moving
     if(moveLeft == false && moveRight == false) {
         stopMove();
@@ -67,11 +66,11 @@ void CEntity::onLoop() {
     }
 
     if(flags & ENTITY_FLAG_GRAVITY) {
-        accel.y = 0.75f;
+        accel.y = 9,82 * dt;
     }
 
-    speed.x += accel.x * CFPS::FPSControl.getSpeedFactor();
-    speed.y += accel.y * CFPS::FPSControl.getSpeedFactor();
+    speed.x += accel.x * dt;
+    speed.y += accel.y * dt;
 
     if(speed.x > maxSpeed.x)  speed.x =  maxSpeed.x;
     if(speed.x < -maxSpeed.x) speed.x = -maxSpeed.x;
@@ -79,8 +78,8 @@ void CEntity::onLoop() {
     if(speed.y < -maxSpeed.y) speed.y = -maxSpeed.y;
 
     onAnimate();
-    onMove(speed);
-	sprite.setPosition(pos);
+    onMove(speed*dt);
+		mEntitySprite.setPosition(pos);
 
 	//Update Bound
 	bound.top = pos.y + size.y/2 - bound.height/2;
@@ -96,12 +95,11 @@ void CEntity::onAnimate() {
         CurrentFrameCol = 1;
     }
     anim_Control.onAnimate();
-	sprite.setTextureRect(sf::IntRect((CurrentFrameCol * size.x),((CurrentFrameRow + anim_Control.getCurrentFrame()) * size.y), size.x, size.y));
+		mEntitySprite.setTextureRect(sf::IntRect((CurrentFrameCol * size.x),((CurrentFrameRow + anim_Control.getCurrentFrame()) * size.y), size.x, size.y));
 }
 
 void CEntity::onRender(sf::RenderWindow & window) {
-    if(texture == NULL) return;
-	window.draw(sprite);
+	window.draw(mEntitySprite);
 	if(DEBUG){
 		sf::RectangleShape rect(sf::RectangleShape(sf::Vector2f(bound.width,bound.height)));
 		rect.setPosition(sf::Vector2f(bound.left,bound.top));
@@ -112,9 +110,7 @@ void CEntity::onRender(sf::RenderWindow & window) {
 }
 
 void CEntity::onCleanup() {
-    if(texture) {
-        delete texture;
-    }
+	
 }
 
 bool CEntity::onCollision(CEntity* entity) {
@@ -129,17 +125,14 @@ void CEntity::onMove(sf::Vector2f move) {
     float newX = 0;
     float newY = 0;
 
-    move.x *= CFPS::FPSControl.getSpeedFactor();
-    move.y *= CFPS::FPSControl.getSpeedFactor();
-
     if(move.x != 0) {
-        if(move.x >= 0)   newX =  CFPS::FPSControl.getSpeedFactor();
-        else             newX = -CFPS::FPSControl.getSpeedFactor();
+        if(move.x >= 0)   newX =  1;
+        else             newX = -1;
     }
 
     if(move.y != 0) {
-        if(move.y >= 0)   newY =  CFPS::FPSControl.getSpeedFactor();
-        else             newY = -CFPS::FPSControl.getSpeedFactor();
+        if(move.y >= 0)   newY =  1;
+        else             newY = -1;
     }
 
     while(true){
@@ -217,11 +210,11 @@ bool CEntity::posValid(sf::Vector2f newPos) {
     int startY = (trialBound.top)/TILE_SIZE;
 
     int EndX = ((trialBound.left + trialBound.width) - 1)/TILE_SIZE;
-	int EndY = ((trialBound.top + trialBound.height) - 1)/TILE_SIZE;
+		int EndY = ((trialBound.top + trialBound.height) - 1)/TILE_SIZE;
 
     for(int iY = startY;iY <= EndY;iY++) {
         for(int iX = startX;iX <= EndX;iX++) {
-            CTile* Tile = CArea::areaControl.getTile(iX * TILE_SIZE, iY * TILE_SIZE);
+            CTile* Tile = CArea::areaControl->getTile(iX * TILE_SIZE, iY * TILE_SIZE);
             if(posValidTile(Tile) == false) {
                 Return = false;
             }
@@ -229,7 +222,7 @@ bool CEntity::posValid(sf::Vector2f newPos) {
     }
 
     /*
-	* Do collision against other entities if entity
+		* Do collision against other entities if entity
     * can collide with other entities
     */
     if(flags & ENTITY_FLAG_MAPONLY) {

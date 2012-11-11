@@ -10,6 +10,8 @@
 #include <MGE/Tile/CCamera.h>
 #include <MGE/Tile/Define.h>
 #include <SFML/Graphics.hpp>
+#include <MGE/Core/Core_types.hpp>
+#include <MGE/Core/assets/TextureAsset.hpp>
 
 #define ENTITY_JUMP_FRAME 7
 
@@ -37,12 +39,46 @@ class CEntity
 	public:
 		static std::vector<CEntity*>    EntityList;
 
+  public:
+		CEntity();
+		virtual ~CEntity();
+
+  public:
+		virtual bool onLoad(const std::string & file, int width, int height, int maxFrames);
+
+		virtual void onLoop(float dt);
+
+		virtual void onRender(sf::RenderWindow & window);
+
+		virtual void onCleanup();
+
+		virtual void onAnimate();
+
+		virtual bool onCollision(CEntity* entity);
+
+		void onMove(sf::Vector2f move);
+
+		void stopMove();
+
+		bool collides(sf::IntRect rect);
+
+		//Check if new position is valid
+		bool posValid(sf::Vector2f newPos);
+		bool posValidTile(CTile* Tile);
+		bool posValidEntity(CEntity* Entity,const sf::IntRect & newBound);
+
+		//Returns the bound of the sprite for collision
+		sf::IntRect getBound();
+		void setCentralBound(int width, int height);
+
+		void CEntity::printStats();
+
 	protected:
 		CAnimation		anim_Control;
 
 		//Graphics
-		sf::Sprite		sprite;
-	  sf::Texture * texture;
+		sf::Sprite				mEntitySprite;
+	  MGE::TextureAsset mEntityTexture;
 
   public:
 		sf::Vector2f	pos;
@@ -73,40 +109,6 @@ class CEntity
   protected:
 		//Bound
 		sf::IntRect bound;
-
-  public:
-		CEntity();
-		virtual ~CEntity();
-
-  public:
-		virtual bool onLoad(const std::string & file, int width, int height, int maxFrames);
-
-		virtual void onLoop();
-
-		virtual void onRender(sf::RenderWindow & window);
-
-		virtual void onCleanup();
-
-		virtual void onAnimate();
-
-		virtual bool onCollision(CEntity* entity);
-
-		void onMove(sf::Vector2f move);
-
-		void stopMove();
-
-		bool collides(sf::IntRect rect);
-
-		//Check if new position is valid
-		bool posValid(sf::Vector2f newPos);
-		bool posValidTile(CTile* Tile);
-		bool posValidEntity(CEntity* Entity,const sf::IntRect & newBound);
-
-		//Returns the bound of the sprite for collision
-		sf::IntRect getBound();
-		void setCentralBound(int width, int height);
-
-		void CEntity::printStats();
 
 	protected:
     bool    canJump;

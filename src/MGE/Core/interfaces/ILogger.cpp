@@ -12,7 +12,6 @@ namespace MGE
 	ILogger* ILogger::gInstance = NULL;
 	std::onullstream ILogger::gNullStream;
 
-
 	ILogger::ILogger( bool derfaultLogger/*=false*/,int exitCode /*= StatusType::StatusError*/ ):
 	mActive(false),
 		mExitCode(StatusError)

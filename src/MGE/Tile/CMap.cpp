@@ -1,8 +1,15 @@
-#include "MGE\Tile\CMap.h"
+#include <MGE\Tile\CMap.h>
 
 CMap::CMap() {
-    
+    ILOG() << "CMap::ctor()" << std::endl;
 }
+
+
+CMap::~CMap()
+{
+	ILOG() << "CMap::dtor()" << std::endl;
+}
+
 
 bool CMap::onLoad(const std::string & File) {
     TileList.clear();
@@ -30,9 +37,8 @@ bool CMap::onLoad(const std::string & File) {
 }
 
 void CMap::onRender(sf::RenderWindow & window, const sf::Vector2f & mapPos) {
-	if(mapTileset == NULL) return;
 
-	int tilesetWidth  = mapSprite.getTexture()->getSize().x / TILE_SIZE;
+		int tilesetWidth  = mapSprite.getTexture()->getSize().x / TILE_SIZE;
     int tilesetHeight = mapSprite.getTexture()->getSize().y / TILE_SIZE;
 
     int ID = 0;
@@ -51,21 +57,17 @@ void CMap::onRender(sf::RenderWindow & window, const sf::Vector2f & mapPos) {
             int tilesetY = (TileList[ID].TileID / tilesetWidth) * TILE_SIZE;
 
             //CSurface::OnDraw(Surf_Display, Surf_Tileset, tX, tY, TilesetX, TilesetY, TILE_SIZE, TILE_SIZE);
-			mapSprite.setPosition(tX,tY);
-			mapSprite.setTextureRect(sf::IntRect(tilesetX,tilesetY,TILE_SIZE,TILE_SIZE));
-			
-			window.draw(mapSprite);
-
+						mapSprite.setPosition(tX,tY);
+						mapSprite.setTextureRect(sf::IntRect(tilesetX,tilesetY,TILE_SIZE,TILE_SIZE));
+						window.draw(mapSprite);
             ID++;
         }
     }
 }
 
-void CMap::setTexture(sf::Texture * tileSet){
-	if(tileSet){
+void CMap::setTexture(MGE::TextureAsset& tileSet){
 		this->mapTileset=tileSet;
-		this->mapSprite.setTexture(*tileSet);
-	}
+		this->mapSprite.setTexture(mapTileset.getAsset());
 }
 
 CTile* CMap::getTile(int X, int Y) {

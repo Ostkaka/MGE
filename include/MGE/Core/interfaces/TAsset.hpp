@@ -89,6 +89,37 @@ namespace MGE
 			return *mAsset;
 		}
 
+		    /**
+       * TAsset assignment operator will allow for copying of assets by
+       * incrementing the reference count for this asset.
+       * @param[in] theRight hand side of the = operation
+       */
+      TAsset<T>& operator=(TAsset<T> theRight)
+      {
+        // Now swap my local copy with theRight copy made during the call to this method
+        swap(*this, theRight);
+
+        // Return my pointer
+        return *this;
+      }
+
+      /**
+       * swap was created according to the copy-and-swap idiom necessary for
+       * correctly handling the assignment operator and copy constructor for a
+       * resource holding class like TAsset. This allows us to perform
+       * reference counting correctly for our TAsset resources.
+       */
+      friend void swap(TAsset& first, TAsset& second)
+      {
+        // enable ADL
+        using std::swap;
+
+        // Swap our asset pointer and ID
+        swap(first.mAsset, second.mAsset);
+        swap(first.mAssetID, second.mAssetID);
+        // The mAssetHandler is already handled at construction time
+      }
+
 	protected:
 
 			/// The derived asset handler for managing this resource type

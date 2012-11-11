@@ -18,5 +18,6 @@ add_executable(basictest ${SOURCE})
 
 target_link_libraries(basictest ${SFML_MAIN_LIBRARY})
 target_link_libraries(basictest mge-core)
+target_link_libraries(basictest mge-tile)
 
 install(TARGETS basictest RUNTIME DESTINATION examples/basictest COMPONENT examples)

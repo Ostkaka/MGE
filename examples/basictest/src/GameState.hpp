@@ -9,6 +9,7 @@
 #include <MGE/Core/Core_types.hpp>
 #include <string>
 #include <iostream>
+#include <MGE/Tile_include.hpp>
 
 /// Provides the TicTacToe GameState example
 class GameState : public MGE::IState
@@ -76,6 +77,11 @@ class GameState : public MGE::IState
 		sf::Sprite mBackgroundSprite;
 		MGE::TextureAsset mBackgroundTexture;
 		MGE::MusicAsset mBackgroundMusic;
+		
+		//Add tile related stuff
+		CPlayer player;
+		CPlayer player2;
+
 }; // class GameState
 
 #endif // GAME_STATE_HPP_INCLUDED

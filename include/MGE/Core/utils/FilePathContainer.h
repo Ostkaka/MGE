@@ -6,7 +6,7 @@
 #include <fstream>
 #include <iostream>
 
-namespace antIO{
+namespace MGEUtil{
 
 	class FilePathContainer {
 

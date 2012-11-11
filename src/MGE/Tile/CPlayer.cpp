@@ -1,4 +1,4 @@
-#include "CPlayer.h"
+#include <MGE/Tile/CPlayer.h>
 
 CPlayer::CPlayer() {
 }
@@ -10,8 +10,8 @@ bool CPlayer::onLoad(const std::string & file, int width, int height, int maxFra
     return true;
 }
 
-void CPlayer::onLoop() {
-    CEntity::onLoop();
+void CPlayer::onLoop(float dt) {
+    CEntity::onLoop(dt);
     //If yoshi is still in the air and falling/Jumping. Do Jump animation
     if(fabs(speed.y) > 0.05){
         //anim_Control.maxFrames = 8;
@@ -38,6 +38,5 @@ void CPlayer::onAnimate(){
 
 bool CPlayer::onCollision(CEntity* Entity) {
     jump();
-
     return true;
 }
