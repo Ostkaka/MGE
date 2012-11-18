@@ -6,6 +6,7 @@
 #include <MGE/Core/interfaces/IState.hpp>
 #include <MGE/Core/assets/TextureHandler.hpp>
 #include <MGE/Core/assets/MusicHandler.hpp>
+#include <MGE/Core/assets/SoundHandler.hpp>
 #include <MGE/Core/loggers/Log.hpp>
 #include <iostream>
 
@@ -85,6 +86,7 @@ namespace MGE
 		//Register basic Assethandler
 		mAssetManager.registerHandler(new(std::nothrow) TextureHandler());
 		mAssetManager.registerHandler(new(std::nothrow) MusicHandler());
+		mAssetManager.registerHandler(new(std::nothrow) SoundHandler());
 
 		// Register our App pointer with our StateManager
 		mStateManager.registerApp(this);
@@ -241,7 +243,7 @@ namespace MGE
 		mWindow.create(mVideoMode, mTitle, mWindowStyle, mContextSettings);
 
 		// Use Vertical Sync
-		mWindow.setVerticalSyncEnabled(true);
+		//mWindow.setVerticalSyncEnabled(true);
 	}
 
 	void IApp::gameLoop(void)

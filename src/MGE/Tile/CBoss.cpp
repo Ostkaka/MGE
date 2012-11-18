@@ -1,12 +1,15 @@
 #include <MGE/Tile/CBoss.h>
 
-CBoss::CBoss() {
+CBoss::CBoss():
+mBossHurtBuffer(){
 }
 
 bool CBoss::onLoad(const std::string & file, int width, int height, int maxFrames) {
 	if(CEntity::onLoad(file, width, height, maxFrames) == false) {
 		return false;
 	}
+	mBossHurtBuffer.setID(RESOURCE_DIR"/YI_Sounds/Sounds/babyBowserComplain.wav");
+	mBossHurtSound.setBuffer(mBossHurtBuffer.getAsset());
 	mEntitySprite.setScale(3,3);
 	setCentralBound(width*3,height*3);
 	return true;
@@ -40,5 +43,7 @@ void CBoss::onAnimate(){
 
 bool CBoss::onCollision(CEntity* Entity) {
 	jump();
+	if(mBossHurtSound.getStatus() != sf::Sound::Playing)
+		mBossHurtSound.play();
 	return true;
 }

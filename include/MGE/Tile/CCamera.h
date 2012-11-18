@@ -27,7 +27,7 @@ class CCamera {
 
     public:
         void onMove(const sf::Vector2f & move);
-		sf::Vector2f getPos();
+				sf::Vector2f getPos();
         void setPos(const sf::Vector2f & pos);
 				void setTarget(sf::Vector2f * Center);
 };

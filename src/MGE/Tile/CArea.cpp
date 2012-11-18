@@ -61,8 +61,8 @@ void CArea::onRender(sf::RenderWindow & window, const sf::Vector2f & cameraPos) 
 			((MAP_HEIGHT * TILE_SIZE)/window.getView().getSize().y + 2));
 		int factor = numMapsShow/2;
 
-    size_t FirstID = int(cameraPos.x) / MapWidth;
-    FirstID = FirstID + ((int(cameraPos.y)) / MapHeight) * areaSize;
+    size_t FirstID = int(cameraPos.x - window.getView().getSize().x/2.0) / MapWidth;
+    FirstID = FirstID + ((int(cameraPos.y - window.getView().getSize().y/2.0 )) / MapHeight) * areaSize;
 
     for(size_t i = 0;i < numMapsShow;i++) {
         size_t ID = FirstID + ((i / factor) * areaSize) + (i % factor);

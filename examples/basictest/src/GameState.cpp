@@ -5,7 +5,8 @@
 GameState::GameState(MGE::IApp& theApp) :
   MGE::IState("Game",theApp),
 	mBackgroundTexture(RESOURCE_DIR"/index.jpg"),
-	mBackgroundMusic(RESOURCE_DIR"/TurfIntro.ogg"){
+	mBackgroundMusic(RESOURCE_DIR"/sounds/11 - Kamek's Theme.flac")
+{
 }
 
 GameState::~GameState()
@@ -21,13 +22,12 @@ void GameState::init()
 	mBackgroundTexture.getAsset().setSmooth(true);
 	mBackgroundSprite.setScale(1,1);
 	mBackgroundSprite.setPosition(50,50);
-	//mBackgroundMusic.getAsset().setLoop(true);
-	//mBackgroundMusic.getAsset().setVolume(20);
-	//mBackgroundMusic.getAsset().play();
+	mBackgroundMusic.getAsset().setLoop(true);
+	mBackgroundMusic.getAsset().setVolume(20);
+	mBackgroundMusic.getAsset().play();
 	std::cout << "Init!" << std::endl;
 
 	CArea::areaControl = new CArea();
-
 
 	if(player.onLoad(RESOURCE_DIR"/tilesets/yoshi.png", 64, 64, 8) == false) {
 		std::cerr << "Failed to load: " << RESOURCE_DIR"/tilesets/yoshi.png" << std::endl;
@@ -130,13 +130,23 @@ void GameState::handleCleanup()
 void GameState::draw()
 {
 	mApp.mWindow.clear();
+
+	sf::Vector2f cameraPos = (CCamera::CameraControl.getPos());
+
+	//Set view according to camera
+	mApp.mWindow.setView(sf::View(cameraPos,sf::Vector2f(mApp.mWindow.getSize())));
+
 	//mApp.mWindow.draw(mBackgroundSprite);
-	CArea::areaControl->onRender(mApp.mWindow,(CCamera::CameraControl.getPos() + sf::Vector2f(-CCamera::CameraControl.width/2,-CCamera::CameraControl.height/2)));
+	CArea::areaControl->onRender(mApp.mWindow,cameraPos);
 
 	for(int i = 0;i < CEntity::EntityList.size();i++) {
 		if(!CEntity::EntityList[i]) continue;
 		CEntity::EntityList[i]->onRender(mApp.mWindow);
 	}
+
+	//reset view 
+	mApp.mWindow.setView(mApp.mWindow.getDefaultView());
+
 }
 
 void GameState::handleEvents(sf::Event tEvent)

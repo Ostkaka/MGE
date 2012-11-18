@@ -6,6 +6,7 @@
 #include <MGE/Core/interfaces/IState.hpp>
 #include <MGE/Core/assets/TextureAsset.hpp>
 #include <MGE/Core/assets/MusicAsset.hpp>
+#include <MGE/Core/assets/SoundAsset.hpp>
 #include <MGE/Core/Core_types.hpp>
 #include <string>
 #include <iostream>
@@ -83,7 +84,8 @@ class GameState : public MGE::IState
 		CBoss mBoss;
 
 		MGE::TextureAsset		mIcon;
-}; // class GameState
+
+}; 
 
 #endif // GAME_STATE_HPP_INCLUDED
 

@@ -3,6 +3,7 @@
 
 #include "CEntity.h"
 #include <string>
+#include <MGE/Core/assets/SoundAsset.hpp>
 
 class CBoss : public CEntity {
 public:
@@ -19,6 +20,10 @@ public:
 	void onAnimate();
 
 	bool onCollision(CEntity* Entity);
+
+protected:
+			MGE::SoundAsset			mBossHurtBuffer;
+			sf::Sound						mBossHurtSound;
 };
 
 #endif /*CBOSS_H_*/

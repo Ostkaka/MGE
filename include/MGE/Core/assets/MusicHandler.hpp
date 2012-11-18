@@ -24,7 +24,9 @@ namespace MGE
 		* Basic deconstructor
 		*/
 		virtual ~MusicHandler();
-		
+	
+	protected:
+
 		/*
 		* See syntax from derived class
 		*/

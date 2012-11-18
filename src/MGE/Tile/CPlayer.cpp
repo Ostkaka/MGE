@@ -1,12 +1,16 @@
 #include <MGE/Tile/CPlayer.h>
 
-CPlayer::CPlayer() {
+CPlayer::CPlayer():
+mPlayerJumpSound() {
 }
 
 bool CPlayer::onLoad(const std::string & file, int width, int height, int maxFrames) {
     if(CEntity::onLoad(file, width, height, maxFrames) == false) {
         return false;
     }
+		mPlayerJumpBuffer.setID(RESOURCE_DIR"/YI_Sounds/Sounds/yoshiJump.wav");
+		mPlayerJumpSound.setBuffer(mPlayerJumpBuffer.getAsset());
+
     return true;
 }
 
@@ -39,4 +43,12 @@ void CPlayer::onAnimate(){
 bool CPlayer::onCollision(CEntity* Entity) {
     jump();
     return true;
+}
+
+bool CPlayer::jump()
+{
+	if(CEntity::jump()){
+		mPlayerJumpSound.play();
+		return true;
+	}
 }

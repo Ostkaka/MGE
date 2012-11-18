@@ -3,7 +3,7 @@
 
 #define ACC_WALK (15 * 10)
 #define GRAVITY (5 * 9.82 * 10)
-#define JUMP_FORCE GRAVITY * 40
+#define JUMP_SPEED GRAVITY * 0.8
 #define FRICTION_CONST 1.5
 #define TRESHHOLD_STOP 50.0f
 #define NUM_MOVE_ITERATIONS 10
@@ -285,7 +285,7 @@ bool CEntity::posValidEntity(CEntity * entity,const sf::IntRect & trialBound) {
 
 bool CEntity::jump() {
     if(canJump == false) return false;
-    accel.y = -JUMP_FORCE;
+    speed.y = -JUMP_SPEED;
     return true;
 }
 

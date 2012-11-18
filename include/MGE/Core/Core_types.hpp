@@ -76,6 +76,8 @@ namespace MGE
 	class TextureHandler;
 	class MusicHandler;
 	class MusicAsset;
+	class SoundAsset;
+	class SoundHandler;
 
 	// Loggers 
 	class StringLogger;

@@ -3,6 +3,7 @@
 
 #include "CEntity.h"
 #include <string>
+#include <MGE/Core/assets/SoundAsset.hpp>
 
 class CPlayer : public CEntity {
     public:
@@ -19,6 +20,12 @@ class CPlayer : public CEntity {
         void onAnimate();
 
         bool onCollision(CEntity* Entity);
+
+				bool jump();
+
+		protected:
+			MGE::SoundAsset			mPlayerJumpBuffer;
+			sf::Sound						mPlayerJumpSound;
 };
 
 #endif

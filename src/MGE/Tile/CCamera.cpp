@@ -16,7 +16,6 @@ void CCamera::onMove(const sf::Vector2f & move) {
 sf::Vector2f CCamera::getPos(){
 	if(targetMode == TARGET_MODE_CENTER){
 		if(targetCenter != NULL) return sf::Vector2f(*targetCenter);
-		else return pos;
 	}
 	return pos;
 }
