@@ -10,7 +10,6 @@ GameState::GameState(MGE::IApp& theApp) :
 
 GameState::~GameState()
 {
-
 }
 
 void GameState::init()
@@ -35,8 +34,8 @@ void GameState::init()
 		return;
 	}
 
-	if(player2.onLoad(RESOURCE_DIR"/tilesets/yoshi.png", 64, 64, 8) == false) {
-		std::cerr << "Failed to load: " << RESOURCE_DIR"/tilesets/yoshi.png" << std::endl;
+	if(mBoss.onLoad(RESOURCE_DIR"/bowser.png", 35, 30, 1) == false) {
+		std::cerr << "Failed to load: " << RESOURCE_DIR"/bowser.png" << std::endl;
 		return;
 	}
 
@@ -57,7 +56,7 @@ void GameState::init()
 
 	// Inits players in the world
 	CEntity::EntityList.push_back(&player);
-	CEntity::EntityList.push_back(&player2);
+	CEntity::EntityList.push_back(&mBoss);
 
 	CCamera::CameraControl.targetMode = TARGET_MODE_CENTER;
 	//CCamera::CameraControl.SetTarget(&Player.X, &Player.Y);
@@ -81,10 +80,10 @@ void GameState::reset()
 {
 	player.speed.x=0;	player.speed.y=0;
 	player.accel.x=0;	player.accel.y=0;
-	player.pos.x = 50; player.pos.y = 25;
-	player2.pos.x = 500;
-	player2.speed.x=0;	player2.speed.y=0;
-	player2.accel.x=0;	player2.accel.y=0;
+	player.pos.x = 50; player.pos.y = -40; 
+	mBoss.pos.x = 500; mBoss.pos.y = -20;
+	mBoss.speed.x=0;	mBoss.speed.y=0;
+	mBoss.accel.x=0;	mBoss.accel.y=0;
 	player.setCentralBound(30,64);
 }
 

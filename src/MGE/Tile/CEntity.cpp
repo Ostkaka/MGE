@@ -6,6 +6,7 @@
 #define JUMP_FORCE GRAVITY * 40
 #define FRICTION_CONST 1.5
 #define TRESHHOLD_STOP 50.0f
+#define NUM_MOVE_ITERATIONS 10
 
 std::vector<CEntity*> CEntity::EntityList;
 
@@ -95,8 +96,8 @@ void CEntity::onLoop( float dt )
 		mEntitySprite.setPosition(pos);
 
 		//Update Bound
-		bound.top = pos.y + size.y/2 - bound.height/2;
-		bound.left = pos.x + size.x/2 - bound.width/2;
+		bound.top = pos.y + (size.y * mEntitySprite.getScale().y)/2 - bound.height/2;
+		bound.left = pos.x + (size.x * mEntitySprite.getScale().x)/2 - bound.width/2;
 
 		//Reset force
 		accel.x=0;
@@ -143,13 +144,13 @@ void CEntity::onMove(sf::Vector2f move) {
     float newY = 0;
 
     if(move.x != 0) {
-        if(move.x >= 0)   newX =  move.x/5.0;
-        else              newX = move.x/5.0;
+        if(move.x >= 0)   newX =  move.x/NUM_MOVE_ITERATIONS;
+        else              newX = move.x/NUM_MOVE_ITERATIONS;
     }
 
     if(move.y != 0) {
-        if(move.y >= 0)   newY =  move.y/5.0;
-        else              newY = move.y/5.0;
+        if(move.y >= 0)   newY =  move.y/NUM_MOVE_ITERATIONS;
+        else              newY = move.y/NUM_MOVE_ITERATIONS;
     }
 
     while(true){
@@ -217,8 +218,8 @@ bool CEntity::posValid(sf::Vector2f newPos) {
 
 	//Create new rectangle for bound
 	sf::IntRect trialBound = bound;
-	trialBound.left = ((int)newPos.x) + size.x/2 - bound.width/2;
-	trialBound.top = ((int)newPos.y) + size.y/2 - bound.height/2;
+	trialBound.left = ((int)newPos.x) + size.x/2 * mEntitySprite.getScale().x - bound.width/2;
+	trialBound.top = ((int)newPos.y) + size.y/2 * mEntitySprite.getScale().y - bound.height/2;
 
     /*
     * Do collision against the Map

@@ -16,6 +16,7 @@
 #include <MGE/Tile/CArea.h>
 #include <MGE/Tile/CMap.h>
 #include <MGE/Tile/CPlayer.h>
+#include <MGE/Tile/CBoss.h>
 #include <MGE/Tile/CTile.h>
 #include <MGE/Tile/CEntity.h>
 #include <MGE/Tile/CCamera.h>

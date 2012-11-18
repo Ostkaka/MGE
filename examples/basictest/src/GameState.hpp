@@ -80,7 +80,7 @@ class GameState : public MGE::IState
 		
 		//Add tile related stuff
 		CPlayer player;
-		CPlayer player2;
+		CBoss mBoss;
 
 		MGE::TextureAsset		mIcon;
 }; // class GameState
