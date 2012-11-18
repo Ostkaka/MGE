@@ -94,9 +94,7 @@ void GameState::updateFixed()
 
 void GameState::updateVariable(float elapsedTime)
 {
-
 	//std::cout << "Elapsed time: " << elapsedTime << std::endl;
-
 	for(int i = 0;i < CEntity::EntityList.size();i++) {
 		if(!CEntity::EntityList[i]) continue;
 

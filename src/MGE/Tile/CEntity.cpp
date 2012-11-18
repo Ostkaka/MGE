@@ -144,12 +144,12 @@ void CEntity::onMove(sf::Vector2f move) {
 
     if(move.x != 0) {
         if(move.x >= 0)   newX =  move.x/5.0;
-        else             newX = move.x/5.0;
+        else              newX = move.x/5.0;
     }
 
     if(move.y != 0) {
         if(move.y >= 0)   newY =  move.y/5.0;
-        else             newY = move.y/5.0;
+        else              newY = move.y/5.0;
     }
 
     while(true){
