@@ -92,16 +92,16 @@ namespace MGE
 		// Register Statmanager
 		mStatManager.registerApp(this);
 
-		//Register custom asset classes
+		// Register custom asset classes
 		initCustomAssetHandlers();
 
-		//Load the application setting file settings.cfg
+		// Load the application setting file settings.cfg
 		initConfig();
 
-		//Opens and inits the render vindow
+		// pens and init the render window
 		initRenderer();
 
-		//Inits the custom game states
+		// Init the custom game states
 		initCustomGameStates();
 
 		// Init statmanager
@@ -287,7 +287,7 @@ namespace MGE
 				// Let the current active state perform fixed updates next
 				anState.updateFixed();
 
-				// Let the StatManager perfom its updates
+				// Let the StatManager perform its updates
 				mStatManager.updateFixed();
 
 				// Compute the next appropriate UpdateFixed time

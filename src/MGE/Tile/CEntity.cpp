@@ -1,6 +1,12 @@
 #include <MGE\Tile\CEntity.h>
 #include <MGE/Core/loggers/Log.hpp>
 
+#define ACC_WALK (15 * 10)
+#define GRAVITY (5 * 9.82 * 10)
+#define JUMP_FORCE GRAVITY * 40
+#define FRICTION_CONST 1.5
+#define TRESHHOLD_STOP 50.0f
+
 std::vector<CEntity*> CEntity::EntityList;
 
 CEntity::CEntity(){
@@ -20,8 +26,8 @@ CEntity::CEntity(){
     dead = false;
     flags = ENTITY_FLAG_GRAVITY;
     
-		maxSpeed.x = 5;
-    maxSpeed.y = 10;
+		maxSpeed.x = 500;
+    maxSpeed.y = 500;
 
     CurrentFrameCol = 0;
     CurrentFrameRow = 0;
@@ -55,18 +61,18 @@ bool CEntity::onLoad(const std::string & file, int width, int height, int maxFra
 void CEntity::onLoop( float dt )
 {
     //We're not Moving
-    if(moveLeft == false && moveRight == false) {
-        stopMove( dt );
+    if(moveLeft == false && moveRight == false && speed.y == 0) {
+        stopMove();
     }
 
     if(moveLeft) {
-        accel.x = -0.5 * dt;
+        accel.x += -ACC_WALK;
     }else if(moveRight) {
-        accel.x = 0.5 * dt;
+        accel.x += ACC_WALK;
     }
 
     if(flags & ENTITY_FLAG_GRAVITY) {
-        accel.y = 9.82;
+        accel.y += GRAVITY;
     }
 
     speed.x += accel.x * dt;
@@ -78,12 +84,23 @@ void CEntity::onLoop( float dt )
     if(speed.y < -maxSpeed.y) speed.y = -maxSpeed.y;
 
     onAnimate();
-    onMove(speed*dt);
+    
+		sf::Vector2f dv = speed*dt;
+
+		//std::cout << "move:" << dv.x << "	" << dv.y << " || accel: " << accel.x << "	" << accel.y << std::endl;
+
+		onMove(dv);
+
+		//Update Sprite
 		mEntitySprite.setPosition(pos);
 
-	//Update Bound
-	bound.top = pos.y + size.y/2 - bound.height/2;
-	bound.left = pos.x + size.x/2 - bound.width/2;
+		//Update Bound
+		bound.top = pos.y + size.y/2 - bound.height/2;
+		bound.left = pos.x + size.x/2 - bound.width/2;
+
+		//Reset force
+		accel.x=0;
+		accel.y=0;
 }
 
 void CEntity::onAnimate() {
@@ -126,13 +143,13 @@ void CEntity::onMove(sf::Vector2f move) {
     float newY = 0;
 
     if(move.x != 0) {
-        if(move.x >= 0)   newX =  1;
-        else             newX = -1;
+        if(move.x >= 0)   newX =  move.x/5.0;
+        else             newX = move.x/5.0;
     }
 
     if(move.y != 0) {
-        if(move.y >= 0)   newY =  1;
-        else             newY = -1;
+        if(move.y >= 0)   newY =  move.y/5.0;
+        else             newY = move.y/5.0;
     }
 
     while(true){
@@ -175,16 +192,16 @@ void CEntity::onMove(sf::Vector2f move) {
     }
 }
 
-void CEntity::stopMove(float dt) {
+void CEntity::stopMove() {
     if(speed.x > 0) {
-        accel.x = -1 * dt;
+        accel.x = -speed.x * FRICTION_CONST;
     }
 
     if(speed.x < 0) {
-        accel.x =  1 * dt;
+        accel.x =  -speed.x * FRICTION_CONST;
     }
 
-    if(speed.x < 2.0f && speed.x > -2.0f) {
+    if(speed.x < TRESHHOLD_STOP && speed.x > -TRESHHOLD_STOP) {
         accel.x = 0;
         speed.x = 0;
     }
@@ -267,7 +284,7 @@ bool CEntity::posValidEntity(CEntity * entity,const sf::IntRect & trialBound) {
 
 bool CEntity::jump() {
     if(canJump == false) return false;
-    speed.y = -maxSpeed.y;
+    accel.y = -JUMP_FORCE;
     return true;
 }
 

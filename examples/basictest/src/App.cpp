@@ -8,10 +8,9 @@ using namespace MGE;
 TestApp::TestApp( const std::string title /*= "TestApp"*/ ): 
 	IApp(title)
 {
-	std::string assetID = RESOURCE_DIR"/pacman.gif";
-	mIcon.setID(assetID);
+
 	mLooger = new FileLogger("./logger.log",true);
-	mWindow.setIcon(32,32,mIcon.getAsset().copyToImage().getPixelsPtr());
+
 }
 
 TestApp::~TestApp()
@@ -26,6 +25,7 @@ void TestApp::initCustomAssetHandlers()
 
 void TestApp::initCustomGameStates()
 {
+
 	mStateManager.addActiveState(new(std::nothrow) GameState(*this));
 	//mStateManager.addActiveState(new(std::nothrow) SplashState(*this,5));
 }

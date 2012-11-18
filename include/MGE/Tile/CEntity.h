@@ -58,7 +58,7 @@ class CEntity
 
 		void onMove(sf::Vector2f move);
 
-		void stopMove(float dt);
+		void stopMove();
 
 		bool collides(sf::IntRect rect);
 

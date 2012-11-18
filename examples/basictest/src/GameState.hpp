@@ -82,6 +82,7 @@ class GameState : public MGE::IState
 		CPlayer player;
 		CPlayer player2;
 
+		MGE::TextureAsset		mIcon;
 }; // class GameState
 
 #endif // GAME_STATE_HPP_INCLUDED
