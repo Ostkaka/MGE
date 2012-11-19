@@ -2,3 +2,4 @@
 remove_definitions(-DMGE_EXPORTS)
 
 add_subdirectory(basictest)
+add_subdirectory(pacman)

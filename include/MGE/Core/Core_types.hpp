@@ -16,7 +16,12 @@
 //#include <GQE/Config.hpp>
 
 //define the resource dir
-#define RESOURCE_DIR "D:/GameProjects/MGE/resources"
+//#define _RELEASE_GAME
+#ifndef _RELEASE_GAME
+	#define RESOURCE_DIR "D:/GameProjects/MGE/resources"
+#else
+	#define RESOURCE_DIR "resources"
+#endif
 
 #define INFO_LEVEL   0  ///< Defines the value for MGE::SeverityInfo
 #define WARN_LEVEL   1  ///< Defines the value for MGE::SeverityWarning

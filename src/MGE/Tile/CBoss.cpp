@@ -38,7 +38,7 @@ void CBoss::onAnimate(){
 	}else{
 		anim_Control.maxFrames = 0;
 	}
-	CEntity::onAnimate();
+	mEntitySprite.setTextureRect(sf::IntRect((CurrentFrameCol * size.x),((CurrentFrameRow + anim_Control.getCurrentFrame()) * size.y), size.x, size.y));
 }
 
 bool CBoss::onCollision(CEntity* Entity) {

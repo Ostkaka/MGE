@@ -51,4 +51,5 @@ bool CPlayer::jump()
 		mPlayerJumpSound.play();
 		return true;
 	}
+	return false;
 }
