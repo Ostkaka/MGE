@@ -13,6 +13,7 @@
 #include <MGE/Tile_include.hpp>
 #include "pacman_define.hpp"
 #include "TileEntity.hpp"
+#include "Ghost.hpp"
 
 /// Provides the TicTacToe GameState example
 class GameState : public MGE::IState
@@ -78,6 +79,7 @@ class GameState : public MGE::IState
     // Variables
     /////////////////////////////////////////////////////////////////////////
 		TileEntity		pacman;
+		Ghost					ghost1;
 
 }; 
 

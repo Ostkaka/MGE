@@ -38,15 +38,26 @@ void GameState::init()
 		ELOG() << "Could not to load pacman: " << RESOURCE_DIR"/tilesets/1.png" << std::endl;
 	}
 
+	// Inits players in the world
+	if(!ghost1.onLoad(RESOURCE_DIR"/tilesets/1.png",16,16,1)){
+		ELOG() << "Could not to load pacman: " << RESOURCE_DIR"/tilesets/1.png" << std::endl;
+	}
+
+	//Pacman 
 	pacman.mTilePos.x = 10;
 	pacman.mTilePos.y = 10;
+	//Ghost
+	ghost1.mTilePos.x = 11;
+	ghost1.mTilePos.y = 12;
+	ghost1.setDirection(Direction::MOVE_UP);
 
 	// Inits players in the world
 	CEntity::EntityList.push_back(&pacman);
+	CEntity::EntityList.push_back(&ghost1);
 
 	sf::Vector2f offset(200,100);
 
-	//Set pos of camera
+	// Set pos of camera
 	CCamera::CameraControl.setPos(sf::Vector2f(mApp.mWindow.getSize().x/2.0,mApp.mWindow.getSize().y/2.0) - offset);
 
 	//CCamera::CameraControl.targetMode = TARGET_MODE_CENTER;
@@ -142,7 +153,7 @@ void GameState::handleEvents(sf::Event tEvent)
 		pause();
 
 	if(tEvent.type == sf::Event::KeyPressed && (tEvent.key.code == sf::Keyboard::Space)){
-		//player.jump();
+		pacman.setDirection(MOVE_NONE);
 		//CCamera::CameraControl.onMove(sf::Vector2f(0,-40));
 	}
 	if(tEvent.type == sf::Event::KeyPressed && (tEvent.key.code == sf::Keyboard::Up)){

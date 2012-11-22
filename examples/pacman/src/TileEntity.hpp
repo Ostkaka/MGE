@@ -29,15 +29,15 @@ public:
 	
 public:
 
-	void onLoop(float dt);
+	virtual void onLoop(float dt);
 
-	void onAnimate();
+	virtual void onAnimate();
 
-	void onCollision();
+	virtual void onCollision();
 
-	void onCleanup();
+	virtual void onCleanup();
 
-	void setDirection(Direction direction);
+	virtual void setDirection(Direction direction);
 
 protected:
 

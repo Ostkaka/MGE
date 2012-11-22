@@ -62,12 +62,18 @@ void TileEntity::onLoop(float dt)
 
 	// Set sprite Position
 	sf::Vector2i size = CArea::areaControl->mMapSize;
-	
+	sf::Vector2f renderPos(float(mTilePos.x * TILE_SIZE),float(mTilePos.y * TILE_SIZE));
 	// Set the sprite pos - needs interpolating from speed clock
-	mEntitySprite.setPosition(float(mTilePos.x * TILE_SIZE),float(mTilePos.y * TILE_SIZE));
+	mEntitySprite.setPosition(renderPos);
+
+	//Update Bound
+	bound.top = renderPos.y + (size.y * mEntitySprite.getScale().y)/2 - bound.height/2;
+	bound.left = renderPos.x + (size.x * mEntitySprite.getScale().x)/2 - bound.width/2;
 
 	// Check for collision with other entities
+	posValid(renderPos);
 	//checkCollsions();
+
 }
 
 void TileEntity::moveTile(){
@@ -89,7 +95,7 @@ void TileEntity::onAnimate()
 
 void TileEntity::onCollision()
 {
-	// WHaatt!
+	std::cout << "PACMAN IS DEAD!!!!! STONE COLD KILLAH! he deeeeeaaaad"<< std::endl;
 }
 
 void TileEntity::onCleanup()
@@ -103,7 +109,7 @@ void TileEntity::setDirection(Direction direction)
 			mDirection = direction;
 }
 
-bool TileEntity::directionIsValid( Direction direction )
+bool TileEntity::directionIsValid(Direction direction)
 {
 	// The next position of the pacman
 	sf::Vector2i nextPos = mTilePos;

@@ -24,7 +24,8 @@
 
 enum {
     ENTITY_TYPE_GENERIC = 0,
-    ENTITY_TYPE_PLAYER
+    ENTITY_TYPE_PLAYER,
+		ENTITY_TYPE_ENEMY
 };
 
 enum {

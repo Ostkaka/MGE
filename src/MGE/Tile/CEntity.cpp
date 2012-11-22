@@ -122,6 +122,7 @@ void CEntity::onRender(sf::RenderWindow & window) {
 		sf::RectangleShape rect(sf::RectangleShape(sf::Vector2f(bound.width,bound.height)));
 		rect.setPosition(sf::Vector2f(bound.left,bound.top));
 		rect.setOutlineThickness(1);
+		rect.setOutlineColor(sf::Color::Red);
 		rect.setFillColor(sf::Color::Transparent);
 		window.draw(rect);
 	}
