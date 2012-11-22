@@ -8,7 +8,8 @@ CArea::CArea() {
     areaSize = 0;
 }
 
-bool CArea::onLoad(const std::string & file) {
+bool CArea::onLoad(const std::string & file, int sizeX, int sizeY) {
+		mMapSize.x = sizeX; mMapSize.y = sizeY;
     mapList.clear();
 
     FILE* fileHandle = fopen(file.c_str(), "r");
@@ -34,7 +35,7 @@ bool CArea::onLoad(const std::string & file) {
             fscanf(fileHandle, "%s ", mapfile);
 						mapPath.append(mapfile);
             CMap tempMap;
-            if(tempMap.onLoad(mapPath) == false) {
+            if(tempMap.onLoad(mapPath,mMapSize.x,mMapSize.y) == false) {
                 fclose(fileHandle);
 								ELOG() << "Could not load map (" << mapPath << ")"  << std::endl;
                 return false;

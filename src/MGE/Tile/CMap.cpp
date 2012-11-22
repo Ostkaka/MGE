@@ -11,7 +11,8 @@ CMap::~CMap()
 }
 
 
-bool CMap::onLoad(const std::string & File) {
+bool CMap::onLoad(const std::string & File, int sizeX, int sizeY){
+		mSize.x = sizeX;mSize.y = sizeY; 
     TileList.clear();
 
     FILE* FileHandle = fopen(File.c_str(), "r");
@@ -20,8 +21,8 @@ bool CMap::onLoad(const std::string & File) {
         return false;
     }
 
-    for(int Y = 0;Y < MAP_HEIGHT;Y++) {
-        for(int X = 0;X < MAP_WIDTH;X++) {
+    for(int Y = 0;Y < mSize.y;Y++) {
+        for(int X = 0;X < mSize.x;X++) {
             CTile tempTile;
 
             fscanf(FileHandle, "%d:%d ", &tempTile.TileID, &tempTile.TypeID);
@@ -43,8 +44,8 @@ void CMap::onRender(sf::RenderWindow & window, const sf::Vector2f & mapPos) {
 
     int ID = 0;
 
-    for(int Y = 0;Y < MAP_HEIGHT;Y++) {
-        for(int X = 0;X < MAP_WIDTH;X++) {
+    for(int Y = 0;Y < mSize.y;Y++) {
+        for(int X = 0;X < mSize.x;X++) {
             if(TileList[ID].TypeID == TILE_TYPE_NONE) {
                 ID++;
                 continue;
@@ -74,7 +75,7 @@ CTile* CMap::getTile(int X, int Y) {
     size_t ID = 0;
 
     ID = X / TILE_SIZE;
-    ID = ID + (MAP_WIDTH * (Y / TILE_SIZE));
+    ID = ID + (mSize.x * (Y / TILE_SIZE));
 
     if(ID < 0 || ID >= TileList.size()) {
         return NULL;

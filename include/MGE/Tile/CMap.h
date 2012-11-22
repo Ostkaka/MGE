@@ -12,7 +12,7 @@ class CMap {
         CMap();
 				~CMap();
     public:
-      bool onLoad(const std::string & File);
+      bool onLoad(const std::string & File,int sizeX, int sizeY);
 
 			void onRender(sf::RenderWindow  & window, const sf::Vector2f & mapPos);
 		
@@ -25,6 +25,7 @@ class CMap {
 			std::vector<CTile> TileList;
 			MGE::TextureAsset  mapTileset;
 			sf::Sprite				 mapSprite;
+			sf::Vector2i			 mSize;
 };
 
 #endif

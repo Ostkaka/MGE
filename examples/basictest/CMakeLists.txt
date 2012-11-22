@@ -1,4 +1,4 @@
-project(basictest)
+project(example_basictest)
 
 set(SRCROOT ${PROJECT_SOURCE_DIR}/src)
 
@@ -14,10 +14,10 @@ endif(WINDOWS)
 include_directories(${SFML_INCLUDE_DIR})
 
 # define the demo target
-add_executable(basictest ${SOURCE})
+add_executable(example_basictest ${SOURCE})
 
-target_link_libraries(basictest ${SFML_MAIN_LIBRARY})
-target_link_libraries(basictest mge-core)
-target_link_libraries(basictest mge-tile)
+target_link_libraries(example_basictest ${SFML_MAIN_LIBRARY})
+target_link_libraries(example_basictest mge-core)
+target_link_libraries(example_basictest mge-tile)
 
-install(TARGETS basictest RUNTIME DESTINATION examples/basictest COMPONENT examples)
+install(TARGETS example_basictest RUNTIME DESTINATION examples/basictest COMPONENT examples)

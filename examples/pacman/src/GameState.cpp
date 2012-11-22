@@ -3,9 +3,7 @@
 #include <MGE/Core/utils/FilePathContainer.h>
 
 GameState::GameState(MGE::IApp& theApp) :
-  MGE::IState("Game",theApp),
-	mBackgroundTexture(RESOURCE_DIR"/index.jpg"),
-	mBackgroundMusic(RESOURCE_DIR"/sounds/11 - Kamek's Theme.flac")
+  MGE::IState("Game",theApp)
 {
 }
 
@@ -18,77 +16,55 @@ void GameState::init()
   // First call our base class implementation
   IState::init();
 
-	mBackgroundSprite.setTexture(mBackgroundTexture.getAsset());
-	mBackgroundTexture.getAsset().setSmooth(true);
-	mBackgroundSprite.setScale(1,1);
-	mBackgroundSprite.setPosition(50,50);
-	mBackgroundMusic.getAsset().setLoop(true);
-	mBackgroundMusic.getAsset().setVolume(20);
-	mBackgroundMusic.getAsset().play();
-	std::cout << "Init!" << std::endl;
-
 	CArea::areaControl = new CArea();
 
-	if(player.onLoad(RESOURCE_DIR"/tilesets/yoshi.png", 64, 64, 8) == false) {
-		std::cerr << "Failed to load: " << RESOURCE_DIR"/tilesets/yoshi.png" << std::endl;
-		return;
-	}
-
-	if(mBoss.onLoad(RESOURCE_DIR"/bowser.png", 35, 30, 1) == false) {
-		std::cerr << "Failed to load: " << RESOURCE_DIR"/bowser.png" << std::endl;
-		return;
-	}
-
 	//Init the icon
-	std::string assetID = RESOURCE_DIR"/pacman.png";
-	mIcon.setID(assetID);
-	sf::Image icon = mIcon.getAsset().copyToImage();
-	MGE::IApp::getApp()->mWindow.setIcon(32,32,icon.getPixelsPtr());
+	//std::string assetID = RESOURCE_DIR"/pacman.png";
+	//mIcon.setID(assetID);
+	//sf::Image icon = mIcon.getAsset().copyToImage();
+	//MGE::IApp::getApp()->mWindow.setIcon(32,32,icon.getPixelsPtr());
 
 	//Load the area
 	MGEUtil::FilePathContainer fp;
 	fp.add(RESOURCE_DIR);
-	std::string areafile = fp.find("/maps/myarea.area");
+	std::string areafile = fp.find("/maps/pacman.area");
 	if(areafile.size()==0) 
-		ELOG() << "The area file: " << "./maps/myarea.area" << " could not be found!" << std::endl;
-	else if(CArea::areaControl->onLoad(areafile))
+		ELOG() << "The area file: " << "./maps/pacman.area" << " could not be found!" << std::endl;
+	else if(CArea::areaControl->onLoad(areafile,PACMAN_MAP_WIDTH,PACMAN_MAP_HEIGHT));
 		ELOG() << "Failed to load areafile: " << ".areafile" << std::endl;
 
 	// Inits players in the world
-	CEntity::EntityList.push_back(&player);
-	CEntity::EntityList.push_back(&mBoss);
+	if(!pacman.onLoad(RESOURCE_DIR"/tilesets/1.png",16,16,1)){
+		ELOG() << "Could not to load pacman: " << RESOURCE_DIR"/tilesets/1.png" << std::endl;
+	}
 
-	CCamera::CameraControl.targetMode = TARGET_MODE_CENTER;
+	pacman.mTilePos.x = 10;
+	pacman.mTilePos.y = 10;
+
+	// Inits players in the world
+	CEntity::EntityList.push_back(&pacman);
+
+	sf::Vector2f offset(200,100);
+
+	//Set pos of camera
+	CCamera::CameraControl.setPos(sf::Vector2f(mApp.mWindow.getSize().x/2.0,mApp.mWindow.getSize().y/2.0) - offset);
+
+	//CCamera::CameraControl.targetMode = TARGET_MODE_CENTER;
 	//CCamera::CameraControl.SetTarget(&Player.X, &Player.Y);
-	CCamera::CameraControl.setTarget(&player.pos);
 
 	//Set position
   reset();
-	
-  // Make sure our update loop is only called 30 times per second
-  mApp.setUpdateRate(10);
-	mApp.setMaxUpdates(1);
-
-	// Cap frame-rate to a max
-	mApp.mWindow.setFramerateLimit(60);
-
-	mApp.mStatManager.setShow(true);
-
 }
 
 void GameState::reset()
 {
-	player.speed.x=0;	player.speed.y=0;
-	player.accel.x=0;	player.accel.y=0;
-	player.pos.x = 50; player.pos.y = -40; 
-	mBoss.pos.x = 500; mBoss.pos.y = -20;
-	mBoss.speed.x=0;	mBoss.speed.y=0;
-	mBoss.accel.x=0;	mBoss.accel.y=0;
-	player.setCentralBound(30,64);
+	//Reset the state
+
 }
 
 void GameState::updateFixed()
 {
+	
 }
 
 void GameState::updateVariable(float elapsedTime)
@@ -129,8 +105,10 @@ void GameState::handleCleanup()
 
 void GameState::draw()
 {
+
 	mApp.mWindow.clear();
 
+	//Get camera pos
 	sf::Vector2f cameraPos = (CCamera::CameraControl.getPos());
 
 	//Set view according to camera
@@ -139,6 +117,7 @@ void GameState::draw()
 	//mApp.mWindow.draw(mBackgroundSprite);
 	CArea::areaControl->onRender(mApp.mWindow,cameraPos);
 
+	//Render entitys
 	for(int i = 0;i < CEntity::EntityList.size();i++) {
 		if(!CEntity::EntityList[i]) continue;
 		CEntity::EntityList[i]->onRender(mApp.mWindow);
@@ -163,28 +142,28 @@ void GameState::handleEvents(sf::Event tEvent)
 		pause();
 
 	if(tEvent.type == sf::Event::KeyPressed && (tEvent.key.code == sf::Keyboard::Space)){
-		player.jump();
+		//player.jump();
 		//CCamera::CameraControl.onMove(sf::Vector2f(0,-40));
 	}
 	if(tEvent.type == sf::Event::KeyPressed && (tEvent.key.code == sf::Keyboard::Up)){
-		//CCamera::CameraControl.onMove(sf::Vector2f(0,40));
+		pacman.setDirection(MOVE_UP);			
 	}
 	if(tEvent.type == sf::Event::KeyPressed && (tEvent.key.code == sf::Keyboard::Down)){
-		//CCamera::CameraControl.onMove(sf::Vector2f(0,40));
+		pacman.setDirection(MOVE_DOWN);
 	}
 	if(tEvent.type == sf::Event::KeyPressed && (tEvent.key.code == sf::Keyboard::Left)){
-		player.moveLeft = true;
-		player.moveRight = false;
+		pacman.setDirection(MOVE_LEFT);
 	}
 	if(tEvent.type == sf::Event::KeyPressed && (tEvent.key.code == sf::Keyboard::Right)){
-		player.moveRight = true;	
-		player.moveLeft = false;	
+		pacman.setDirection(MOVE_RIGHT);
+		//player.moveRight = true;	
+		//player.moveLeft = false;	
 	}
 	if(tEvent.type == sf::Event::KeyReleased && (tEvent.key.code == sf::Keyboard::Left)){
-		player.moveLeft = false;
+		//player.moveLeft = false;
 	}
 	if(tEvent.type == sf::Event::KeyReleased && (tEvent.key.code == sf::Keyboard::Right)){
-		player.moveRight = false;
+		//player.moveRight = false;
 	}
 
 	if(tEvent.type == sf::Event::KeyPressed && (tEvent.key.code == sf::Keyboard::R)){

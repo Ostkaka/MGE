@@ -51,7 +51,7 @@ void GameState::init()
 	std::string areafile = fp.find("/maps/myarea.area");
 	if(areafile.size()==0) 
 		ELOG() << "The area file: " << "./maps/myarea.area" << " could not be found!" << std::endl;
-	else if(CArea::areaControl->onLoad(areafile))
+	else if(CArea::areaControl->onLoad(areafile,MAP_WIDTH,MAP_HEIGHT))
 		ELOG() << "Failed to load areafile: " << ".areafile" << std::endl;
 
 	// Inits players in the world

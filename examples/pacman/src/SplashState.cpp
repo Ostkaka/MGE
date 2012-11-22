@@ -4,7 +4,7 @@
 SplashState::SplashState( MGE::IApp& app,float splashDuration ):
 	MGE::IState("Splash",app),
 	mSplashDuration(splashDuration),
-	mSpashScreenAsset("./resources/pacmanlogo.gif")
+	mSpashScreenAsset(RESOURCE_DIR"/pacmanlogo.gif")
 {
 }
 
@@ -20,6 +20,7 @@ void SplashState::init()
 	 mIntroFilter.setAlphaChanger(500/(1000*mSplashDuration));
 	 mIntroFilter.setFilterDelay(1.0/(1000*mSplashDuration));
 	 mIntroFilter.changeFade(true);
+
 }
 
 void SplashState::reset()
@@ -48,7 +49,16 @@ void SplashState::updateVariable(float elapsedTime )
 
 void SplashState::draw()
 {
-	mApp.mWindow.draw(mIntroFilter.getFilterSprite());
+	mApp.mWindow.clear();
+
+	sf::Vector2f w = sf::Vector2f(mIntroFilter.getFilterSprite().getLocalBounds().width/2,
+		mIntroFilter.getFilterSprite().getLocalBounds().height/2);
+
+	sf::Vector2f size = sf::Vector2f(mApp.mWindow.getSize().x/2,mApp.mWindow.getSize().y/2);
+	
+	sf::Sprite sprite = mIntroFilter.getFilterSprite();
+	sprite.setPosition(size -w);
+	mApp.mWindow.draw(sprite);
 }
 
 void SplashState::handleCleanup()

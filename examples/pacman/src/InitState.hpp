@@ -1,33 +1,26 @@
+#ifndef   NITSTATE_HPP_HPP
+	#define   NITSTATE_HPP_HPP
 
-#ifndef   GAME_STATE_HPP_INCLUDED
-	#define   GAME_STATE_HPP_INCLUDED
-
-#include <SFML/Graphics.hpp>
 #include <MGE/Core/interfaces/IState.hpp>
-#include <MGE/Core/assets/TextureAsset.hpp>
-#include <MGE/Core/assets/MusicAsset.hpp>
-#include <MGE/Core/assets/SoundAsset.hpp>
 #include <MGE/Core/Core_types.hpp>
+
 #include <string>
 #include <iostream>
-#include <MGE/Tile_include.hpp>
-#include "pacman_define.hpp"
-#include "TileEntity.hpp"
 
 /// Provides the TicTacToe GameState example
-class GameState : public MGE::IState
+class InitState : public MGE::IState
 {
   public:
     /**
      * GameState constructor
      * @param[in] theApp is an address to the App class.
      */
-    GameState(MGE::IApp& theApp);
+    InitState(MGE::IApp& app);
 
     /**
      * GameState deconstructor
      */
-    virtual ~GameState();
+    virtual ~InitState();
 
     /**
      * DoInit is responsible for initializing this State
@@ -75,11 +68,8 @@ class GameState : public MGE::IState
     virtual void handleCleanup();
 
   private:
-    // Variables
-    /////////////////////////////////////////////////////////////////////////
-		TileEntity		pacman;
 
 }; 
 
-#endif // GAME_STATE_HPP_INCLUDED
 
+#endif /*INITSTATE_HPP*/

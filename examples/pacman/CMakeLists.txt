@@ -1,4 +1,4 @@
-project(pacman)
+project(example_pacman)
 
 set(SRCROOT ${PROJECT_SOURCE_DIR}/src)
 
@@ -14,10 +14,10 @@ endif(WINDOWS)
 include_directories(${SFML_INCLUDE_DIR})
 
 # define the demo target
-add_executable(pacman ${SOURCE})
+add_executable(example_pacman ${SOURCE})
 
-target_link_libraries(pacman ${SFML_MAIN_LIBRARY})
-target_link_libraries(pacman mge-core)
-target_link_libraries(pacman mge-tile)
+target_link_libraries(example_pacman ${SFML_MAIN_LIBRARY})
+target_link_libraries(example_pacman mge-core)
+target_link_libraries(example_pacman mge-tile)
 
-install(TARGETS pacman RUNTIME DESTINATION examples/pacman COMPONENT examples)
+install(TARGETS example_pacman RUNTIME DESTINATION examples/pacman COMPONENT examples)

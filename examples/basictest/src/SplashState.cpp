@@ -4,7 +4,7 @@
 SplashState::SplashState( MGE::IApp& app,float splashDuration ):
 	MGE::IState("Splash",app),
 	mSplashDuration(splashDuration),
-	mSpashScreenAsset("./resources/pacmanlogo.gif")
+	mSpashScreenAsset(RESOURCE_DIR"/pacmanlogo.gif")
 {
 }
 

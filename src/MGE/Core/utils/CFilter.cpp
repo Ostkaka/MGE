@@ -26,10 +26,12 @@ namespace MGEUtil
 	{
 			if((m_FilterIn) && (m_runFade))
 			{
+			//float dt = m_clockCFilter.getElapsedTime().asMilliseconds();
+
 			if((m_alphaColor<=COLOR) && (m_clockCFilter.getElapsedTime().asMilliseconds() > m_FilterDelay))
 					{
 							m_Filter.setColor(sf::Color(COLOR,COLOR,COLOR,m_alphaColor+=m_alphaChanger));
-				m_clockCFilter.restart();
+							m_clockCFilter.restart();
 					}
  
 					if(m_alphaColor>COLOR)
@@ -57,7 +59,7 @@ namespace MGEUtil
  
 	sf::Sprite Filter::getFilterSprite()const
 	{
-			return m_Filter;
+ 			return m_Filter;
 	}
  
 	float Filter::getAlphaColor() const

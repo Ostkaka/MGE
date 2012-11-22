@@ -13,7 +13,7 @@ class CArea {
     public:
         CArea();
 				~CArea();
-        bool    onLoad(const std::string & File);
+        bool    CArea::onLoad(const std::string & file, int sizeX, int sizeY);
 				void    onRender(sf::RenderWindow & window, const sf::Vector2f & cameraPos);
         void    onCleanup();
 
@@ -21,8 +21,9 @@ class CArea {
 			CMap * getMap(int X, int Y);
 			CTile *	getTile(int X, int Y);
 			static CArea *			areaControl;
+			sf::Vector2i				mMapSize;
 
-		private:
+		protected:
 			int									areaSize;
 			MGE::TextureAsset		mTilesetTexture;
 
