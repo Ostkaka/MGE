@@ -61,14 +61,13 @@ void TileEntity::onLoop(float dt)
 	//onMove(); 
 
 	// Set sprite Position
-	sf::Vector2i size = CArea::areaControl->mMapSize;
 	sf::Vector2f renderPos(float(mTilePos.x * TILE_SIZE),float(mTilePos.y * TILE_SIZE));
 	// Set the sprite pos - needs interpolating from speed clock
 	mEntitySprite.setPosition(renderPos);
 
 	//Update Bound
-	bound.top = renderPos.y + (size.y * mEntitySprite.getScale().y)/2 - bound.height/2;
-	bound.left = renderPos.x + (size.x * mEntitySprite.getScale().x)/2 - bound.width/2;
+	bound.top = renderPos.y + (this->size.y * mEntitySprite.getScale().y)/2 - bound.height/2;
+	bound.left = renderPos.x + (this->size.x * mEntitySprite.getScale().x)/2 - bound.width/2;
 
 	// Check for collision with other entities
 	posValid(renderPos);
@@ -93,9 +92,13 @@ void TileEntity::onAnimate()
 
 }
 
-void TileEntity::onCollision()
+bool TileEntity::onCollision(CEntity* entity)
 {
-	std::cout << "PACMAN IS DEAD!!!!! STONE COLD KILLAH! he deeeeeaaaad"<< std::endl;
+	if(entity->type == ENTITY_TYPE_ENEMY && !dead){
+		std::cout << "PACMAN IS DEAD!!!!! STONE COLD KILLAH! he deeeeeaaaad"<< std::endl;
+		dead=true;
+	}
+	return false;
 }
 
 void TileEntity::onCleanup()

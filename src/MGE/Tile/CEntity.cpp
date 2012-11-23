@@ -210,7 +210,8 @@ void CEntity::stopMove() {
 }
 
 bool CEntity::collides(sf::IntRect trialBound) {
-	if(bound.intersects(trialBound)) return true;
+	if(bound.intersects(trialBound)) 
+		return true;
 	else return false;
 }
 

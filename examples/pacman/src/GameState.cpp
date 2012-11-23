@@ -157,7 +157,7 @@ void GameState::handleEvents(sf::Event tEvent)
 		//CCamera::CameraControl.onMove(sf::Vector2f(0,-40));
 	}
 	if(tEvent.type == sf::Event::KeyPressed && (tEvent.key.code == sf::Keyboard::Up)){
-		pacman.setDirection(MOVE_UP);			
+ 		pacman.setDirection(MOVE_UP);			
 	}
 	if(tEvent.type == sf::Event::KeyPressed && (tEvent.key.code == sf::Keyboard::Down)){
 		pacman.setDirection(MOVE_DOWN);

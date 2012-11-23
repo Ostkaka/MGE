@@ -22,7 +22,7 @@ public:
 
 	void onAnimate();
 
-	void onCollision();
+	bool onCollision(CEntity* entity);
 
 protected:
 	//AI algorithm for moving

@@ -33,11 +33,11 @@ public:
 
 	virtual void onAnimate();
 
-	virtual void onCollision();
-
 	virtual void onCleanup();
 
 	virtual void setDirection(Direction direction);
+
+	virtual bool onCollision(CEntity* entity);
 
 protected:
 

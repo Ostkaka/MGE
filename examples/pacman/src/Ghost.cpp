@@ -51,8 +51,7 @@ void Ghost::onAnimate()
 	//Animate ghost
 }
 
-void Ghost::onCollision()
+bool Ghost::onCollision(CEntity* entity)
 {
-	// KIll PACMAN!
-	std::cout << "PACMAN IS DEAD!!!!! STONE COLD KILLAH! he deeeeeaaaad"<< std::endl;
+	return true;
 }
