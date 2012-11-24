@@ -34,13 +34,13 @@ void GameState::init()
 		ELOG() << "Failed to load areafile: " << ".areafile" << std::endl;
 
 	// Inits players in the world
-	if(!pacman.onLoad(RESOURCE_DIR"/tilesets/1.png",16,16,1)){
-		ELOG() << "Could not to load pacman: " << RESOURCE_DIR"/tilesets/1.png" << std::endl;
+	if(!pacman.onLoad(RESOURCE_DIR"/pacman_tiles.png",16,16,1)){
+		ELOG() << "Could not to load pacman: " << RESOURCE_DIR"/pacmantileset.png" << std::endl;
 	}
 
 	// Inits players in the world
-	if(!ghost1.onLoad(RESOURCE_DIR"/tilesets/1.png",16,16,1)){
-		ELOG() << "Could not to load pacman: " << RESOURCE_DIR"/tilesets/1.png" << std::endl;
+	if(!ghost1.onLoad(RESOURCE_DIR"/pacman_tiles.png",16,16,1)){
+		ELOG() << "Could not to load pacman: " << RESOURCE_DIR"/pacmantileset.png" << std::endl;
 	}
 
 	//Pacman 

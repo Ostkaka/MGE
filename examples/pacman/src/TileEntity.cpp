@@ -30,7 +30,7 @@ CEntity(),
 mTilePos(0,0),
 mDirection(MOVE_NONE),
 mMoveClock(),
-mTileSpeed(10)
+mTileSpeed(5)
 {
 	dead = false;
 	flags = ENTITY_FLAG_NONE;
@@ -94,11 +94,7 @@ void TileEntity::onAnimate()
 
 bool TileEntity::onCollision(CEntity* entity)
 {
-	if(entity->type == ENTITY_TYPE_ENEMY && !dead){
-		std::cout << "PACMAN IS DEAD!!!!! STONE COLD KILLAH! he deeeeeaaaad"<< std::endl;
-		dead=true;
-	}
-	return false;
+	return true;
 }
 
 void TileEntity::onCleanup()
