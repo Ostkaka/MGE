@@ -26,6 +26,7 @@ public:
 
 protected:
 	//AI algorithm for moving
+	Direction getNewDirection();
 
 public:
 

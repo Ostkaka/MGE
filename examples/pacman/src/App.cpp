@@ -1,4 +1,5 @@
 #include "App.hpp"
+#include <ctime>
 
 using namespace MGE;
 /*
@@ -10,6 +11,7 @@ TestApp::TestApp( const std::string title /*= "TestApp"*/ ):
 {
 
 	mLooger = new FileLogger("./logger.log",true);
+	srand(std::time(NULL));
 }
 
 TestApp::~TestApp()

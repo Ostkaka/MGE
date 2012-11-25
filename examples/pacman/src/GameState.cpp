@@ -2,6 +2,9 @@
 #include <MGE/Core/interfaces/IApp.hpp>
 #include <MGE/Core/utils/FilePathContainer.h>
 
+#define PACMAN_SPRITES RESOURCE_DIR"/pacman_tiles.png"
+#define SHEET_OFFSET sf::Vector2f();
+
 GameState::GameState(MGE::IApp& theApp) :
   MGE::IState("Game",theApp)
 {
@@ -34,12 +37,12 @@ void GameState::init()
 		ELOG() << "Failed to load areafile: " << ".areafile" << std::endl;
 
 	// Inits players in the world
-	if(!pacman.onLoad(RESOURCE_DIR"/pacman_tiles.png",16,16,1)){
+	if(!pacman.onLoad(PACMAN_SPRITES,16,16,2)){
 		ELOG() << "Could not to load pacman: " << RESOURCE_DIR"/pacmantileset.png" << std::endl;
 	}
 
 	// Inits players in the world
-	if(!ghost1.onLoad(RESOURCE_DIR"/pacman_tiles.png",16,16,1)){
+	if(!ghost1.onLoad(PACMAN_SPRITES,16,16,1)){
 		ELOG() << "Could not to load pacman: " << RESOURCE_DIR"/pacmantileset.png" << std::endl;
 	}
 
@@ -48,8 +51,8 @@ void GameState::init()
 	pacman.mTilePos.y = 10;
 	//Ghost
 	ghost1.mTilePos.x = 11;
-	ghost1.mTilePos.y = 12;
-	ghost1.setDirection(Direction::MOVE_UP);
+	ghost1.mTilePos.y = 13;
+	ghost1.setDirection(Direction::MOVE_RIGHT);
 
 	// Inits players in the world
 	CEntity::EntityList.push_back(&pacman);

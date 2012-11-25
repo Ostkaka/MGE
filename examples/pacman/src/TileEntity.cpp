@@ -1,36 +1,11 @@
 #include "TileEntity.hpp"
 
-sf::Vector2i getIncrement(Direction direction){
-	sf::Vector2i increment; 
-	// if direction is valid, move
-	switch(direction)
-	{
-	case MOVE_RIGHT:
-		increment.x = 1;
-		break;
-	case MOVE_LEFT:
-		increment.x = -1;
-		break;
-	case MOVE_UP:
-		increment.y = -1;
-		break;
-	case MOVE_DOWN:
-		increment.y = 1;
-		break;
-	case MOVE_NONE:
-		break;
-	default:
-		break;
-	}
-	return increment;
-}
-
 TileEntity::TileEntity():
 CEntity(),
 mTilePos(0,0),
 mDirection(MOVE_NONE),
 mMoveClock(),
-mTileSpeed(5)
+mTileSpeed(2)
 {
 	dead = false;
 	flags = ENTITY_FLAG_NONE;
@@ -65,7 +40,7 @@ void TileEntity::onLoop(float dt)
 	// Set the sprite pos - needs interpolating from speed clock
 	mEntitySprite.setPosition(renderPos);
 
-	//Update Bound
+	// Update Bound
 	bound.top = renderPos.y + (this->size.y * mEntitySprite.getScale().y)/2 - bound.height/2;
 	bound.left = renderPos.x + (this->size.x * mEntitySprite.getScale().x)/2 - bound.width/2;
 
@@ -126,3 +101,27 @@ bool TileEntity::directionIsValid(Direction direction)
 		return true;
 }
 
+sf::Vector2i getIncrement(Direction direction){
+	sf::Vector2i increment; 
+	// if direction is valid, move
+	switch(direction)
+	{
+	case MOVE_RIGHT:
+		increment.x = 1;
+		break;
+	case MOVE_LEFT:
+		increment.x = -1;
+		break;
+	case MOVE_UP:
+		increment.y = -1;
+		break;
+	case MOVE_DOWN:
+		increment.y = 1;
+		break;
+	case MOVE_NONE:
+		break;
+	default:
+		break;
+	}
+	return increment;
+}

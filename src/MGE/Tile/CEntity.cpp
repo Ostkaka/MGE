@@ -62,10 +62,9 @@ bool CEntity::onLoad(const std::string & file, int width, int height, int maxFra
 void CEntity::onLoop( float dt )
 {
     //We're not Moving
-    if(moveLeft == false && moveRight == false && speed.y == 0) {
+    if(moveLeft == false && moveRight == false && speed.y == 0) 
         stopMove();
-    }
-
+    
     if(moveLeft) {
         accel.x += -ACC_WALK;
     }else if(moveRight) {

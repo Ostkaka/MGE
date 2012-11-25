@@ -57,4 +57,8 @@ public:
 	
 };
 
+/// Helper functions
+
+sf::Vector2i getIncrement(Direction direction);
+
 #endif /* TILEENTITY_HPP */
