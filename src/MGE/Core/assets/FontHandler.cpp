@@ -13,7 +13,7 @@ namespace MGE
 		ILOG() << "FontHandler::dtor()" << std::endl;
 	}
 
-	bool FontHandler::LoadFromFile( const typeAssetID assetID, sf::Font& asset )
+	bool FontHandler::loadFromFile( const typeAssetID assetID, sf::Font& asset )
 	{
 		// Start with a return result of false
 		bool succ = false;

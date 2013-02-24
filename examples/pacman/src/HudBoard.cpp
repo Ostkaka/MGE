@@ -2,7 +2,7 @@
 #include <MGE/Core/interfaces/IApp.hpp>
 
 HudBoard::HudBoard():
-mFontAsset(RESOURCE_DIR"/arial.tff")
+mFontAsset(RESOURCE_DIR"/arial.ttf")
 {
 	mTextSize = 10;
 }

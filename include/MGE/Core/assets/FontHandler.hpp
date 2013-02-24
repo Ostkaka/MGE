@@ -30,7 +30,7 @@ namespace MGE
     /**
 		 * See parent class
      */
-    virtual bool LoadFromFile(const typeAssetID assetID, sf::Font& asset);
+    virtual bool loadFromFile(const typeAssetID assetID, sf::Font& asset);
 
   private:
   }; 
