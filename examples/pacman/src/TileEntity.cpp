@@ -5,7 +5,7 @@ CEntity(),
 mTilePos(0,0),
 mDirection(MOVE_NONE),
 mMoveClock(),
-mTileSpeed(2)
+mTileSpeed(0)
 {
 	dead = false;
 	flags = ENTITY_FLAG_NONE;
@@ -32,27 +32,17 @@ void TileEntity::onLoop(float dt)
 		}
 	}
 
-	//Move the object position according to interpolation
-	//onMove(); 
-
-	// Set sprite Position
-	sf::Vector2f renderPos(float(mTilePos.x * TILE_SIZE),float(mTilePos.y * TILE_SIZE));
 	// Set the sprite pos - needs interpolating from speed clock
-	mEntitySprite.setPosition(renderPos);
-
-	// Update Bound
-	bound.top = renderPos.y + (this->size.y * mEntitySprite.getScale().y)/2 - bound.height/2;
-	bound.left = renderPos.x + (this->size.x * mEntitySprite.getScale().x)/2 - bound.width/2;
+	mEntitySprite.setPosition(pos);
 
 	// Check for collision with other entities
-	posValid(renderPos);
-	//checkCollsions();
+	posValid(pos);
 
 }
 
 void TileEntity::moveTile(){
 	if(directionIsValid(mDirection))
-		mTilePos += getIncrement(mDirection);
+		setTilePos(mTilePos +getIncrement(mDirection));
 	else 
 		mDirection = MOVE_NONE;
 
@@ -99,6 +89,32 @@ bool TileEntity::directionIsValid(Direction direction)
 		return false;
 	else
 		return true;
+}
+
+void TileEntity::reset()
+{
+
+}
+
+void TileEntity::setTilePos(const sf::Vector2i& newPos)
+{
+	mTilePos = newPos;
+
+	pos = sf::Vector2f(float(mTilePos.x * TILE_SIZE),float(mTilePos.y * TILE_SIZE));
+
+	updateBound();
+}
+
+void TileEntity::updateBound()
+{
+	// Update Bound
+	bound.top = pos.y + (this->size.y * mEntitySprite.getScale().y)/2 - bound.height/2;
+	bound.left = pos.x + (this->size.x * mEntitySprite.getScale().x)/2 - bound.width/2;
+}
+
+void TileEntity::setTileSpeed( float speed )
+{
+	mTileSpeed = speed;
 }
 
 sf::Vector2i getIncrement(Direction direction){

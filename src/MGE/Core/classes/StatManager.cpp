@@ -136,7 +136,7 @@ namespace MGE
 			frames << "FPS: " << std::fixed << mFrames;
 			mFPS->setString(frames.str());
 
-			//Reset updates
+			// Reset updates
 			mFrames = 0;
 			mFrameClock.restart();
 		}

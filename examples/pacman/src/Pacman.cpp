@@ -8,6 +8,7 @@ TileEntity()
 	//Set animation collumn
 	anim_Control.setFrameRate(100);
 	anim_Control.oscillate=true;
+	mTileSpeed = 2;
 }
 
 Pacman::~Pacman()
@@ -56,7 +57,6 @@ void Pacman::onAnimate()
 		row = CurrentFrameRow;
 	}
 
-
 	mEntitySprite.setTextureRect(sf::IntRect(column * size.x,
 		row * size.y, size.x, size.y));
 }
@@ -66,6 +66,10 @@ bool Pacman::onCollision( CEntity* entity )
 	if(entity->type == ENTITY_TYPE_ENEMY && !dead){
 		std::cout << "PACMAN IS DEAD!!!!! STONE COLD KILLAH! he deeeeeaaaad"<< std::endl;
 		dead=true;
+	}
+	else if(entity->type == ENTITY_TYPE_FOOD_CANDY && !entity->dead)
+	{
+		// Add score to pacman
 	}
 	return false;
 }

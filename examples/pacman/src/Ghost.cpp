@@ -29,6 +29,7 @@ Ghost::Ghost():
 TileEntity()
 {
 	type = ENTITY_TYPE_ENEMY;
+	mTileSpeed = 2;
 }
 
 Ghost::~Ghost()
@@ -51,20 +52,11 @@ void Ghost::onLoop(float dt)
 		}
 	}
 
-	//Move the object position according to interpolation
-	//onMove(); 
-
-	// Set sprite Position
-	sf::Vector2f renderPos(float(mTilePos.x * TILE_SIZE),float(mTilePos.y * TILE_SIZE));
-	// Set the sprite pos - needs interpolating from speed clock
-	mEntitySprite.setPosition(renderPos);
-
-	// Update Bound
-	bound.top = renderPos.y + (this->size.y * mEntitySprite.getScale().y)/2 - bound.height/2;
-	bound.left = renderPos.x + (this->size.x * mEntitySprite.getScale().x)/2 - bound.width/2;
+	// Set sprite pos
+	mEntitySprite.setPosition(pos);
 
 	// Check for collision with other entities
-	posValid(renderPos);
+	posValid(pos);
 	//checkCollsions();
 }
 

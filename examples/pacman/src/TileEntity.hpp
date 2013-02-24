@@ -14,6 +14,11 @@ enum Direction {
 	MOVE_NONE
 };
 
+enum {
+	ENTITY_TYPE_FOOD_CANDY,
+	ENTITY_TYPE_FOOD_FRUIT,
+};
+
 class TileEntity : public CEntity
 {
 public:
@@ -29,6 +34,8 @@ public:
 	
 public:
 
+	virtual void reset();
+
 	virtual void onLoop(float dt);
 
 	virtual void onAnimate();
@@ -39,17 +46,27 @@ public:
 
 	virtual bool onCollision(CEntity* entity);
 
+	void setTilePos(const sf::Vector2i& newPos);
+
+	void setTileSpeed(float speed);
+
+protected:
+
+	void updateBound();
+
+	void moveTile();
+	
+	bool directionIsValid( Direction direction );
+
 protected:
 
 	// Direction of the tiled object
 	Direction				mDirection;
 
-	void moveTile();
-	bool directionIsValid( Direction direction );
-
-public:
+protected:
 	// Tile speed, number of tiles per second
 	float						mTileSpeed;
+
 	// Logical tile position of the object
 	sf::Vector2i		mTilePos;
 	// Clock that keeps time of when to move again

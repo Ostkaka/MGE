@@ -10,11 +10,14 @@
 #include <MGE/Core/Core_types.hpp>
 #include <string>
 #include <iostream>
+#include <list>
 #include <MGE/Tile_include.hpp>
 #include "pacman_define.hpp"
 #include "TileEntity.hpp"
 #include "Ghost.hpp"
 #include "Pacman.hpp"
+#include "Food.hpp"
+#include "HudBoard.hpp"
 
 /// Provides the TicTacToe GameState example
 class GameState : public MGE::IState
@@ -76,12 +79,33 @@ class GameState : public MGE::IState
      */
     virtual void handleCleanup();
 
+		/**
+		 * Cosntructs candy in the level on all tiles marked as NORMAL
+		 */
+		void candyFactory(CArea * area);
+
+		/**
+		 * Construct a candy and add it to the entity list
+		 */
+		void constructCandy(int x,int y);
+
+		/*
+		* Clears the candy list
+		*/
+		void clearCandy();
+
+		void printCandyStatus();
   private:
     // Variables
     /////////////////////////////////////////////////////////////////////////
-		Pacman				pacman;
-		Ghost					ghost1;
+		Pacman									pacman;
+		Ghost										ghost1;
+		std::list<Candy*>				mCandyList;
+		HudBoard								mHudBoard;
 
+		/// Game stats
+		int											mScore;
+		int											mLives;
 }; 
 
 #endif // GAME_STATE_HPP_INCLUDED
