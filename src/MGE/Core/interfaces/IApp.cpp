@@ -13,7 +13,6 @@
 
 namespace MGE 
 {
-
 	/// Default application wide settings file string
 	const char* IApp::APP_SETTINGS = "resources/settings.cfg";
 

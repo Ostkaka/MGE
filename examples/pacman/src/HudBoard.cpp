@@ -9,8 +9,8 @@ mFontAsset(RESOURCE_DIR"/arial.ttf")
 
 HudBoard::~HudBoard()
 {
-
 }
+
 
 void HudBoard::draw(sf::Window& window,  int lives, int score )
 { 
